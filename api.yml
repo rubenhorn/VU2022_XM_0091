@@ -240,8 +240,14 @@ paths:
                         example: You may not post messages here
       security:
         - bearerAuth: []
-  '/messages/{messageId}':
+  '/threads/{threadId}/{messageId}':
     parameters:
+      - in: path
+        name: threadId
+        schema:
+          type: string
+        example: 104ab42f11
+        required: true
       - in: path
         name: messageId
         schema:
