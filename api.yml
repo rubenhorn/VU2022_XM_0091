@@ -1,0 +1,217 @@
+openapi: 3.0.0
+info:
+  version: 0.1.0
+  title: Forum API
+  description: Implements JSend specification
+  
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    author:
+      type: object
+      properties:
+        id:
+          type: string
+          example: c35522906a
+        displayname:
+          type: string
+          example: Mr. Foo
+    thread:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 104ab42f11
+        title:
+          type: string
+          example: Forum etiquette
+    message:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5284267ade
+        timestamp:
+          type: integer
+          example: 1642532293
+        author:
+          $ref: "#/components/schemas/author"
+        text:
+          type: string
+          example: Hello forum!
+  
+paths:
+  /threads:
+    get:
+      tags: [Content]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/thread"
+    post:
+      tags: [Content]
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Forum etiquette
+      responses:
+        409:
+          description: Conflict (already exists)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: A thread with this title already exists
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: "#/components/schemas/thread" 
+      security:
+      - bearerAuth: []
+  /threads/{threadId}:
+    parameters:
+      - in: path
+        name: threadId
+        schema:
+          type: string
+        example: 104ab42f11
+        required: true
+    get:
+      tags: [Content]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          example: 2
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      messages:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/message"
+                      previousPage:
+                        type: integer
+                        example: 1
+                      nextPage:
+                        type: integer
+                        example: null
+    post:
+      tags: [Content]
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Hello forum!
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: null
+      security:
+      - bearerAuth: []
+  /messages/{messageId}:
+    parameters:
+        - in: path
+          name: messageId
+          schema:
+            type: string
+          example: 5284267ade
+          required: true
+    delete:
+      tags: [Content]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: null
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        example: You may not delete this message
+      security:
+      - bearerAuth: []
