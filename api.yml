@@ -3,7 +3,7 @@ info:
   version: 0.1.0
   title: Forum API
   description: Implements JSend specification
-  
+
 components:
   securitySchemes:
     bearerAuth:
@@ -43,7 +43,7 @@ components:
         text:
           type: string
           example: Hello forum!
-  
+
 paths:
   /threads:
     get:
@@ -68,7 +68,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               type: object
               properties:
                 title:
@@ -102,9 +102,9 @@ paths:
                     type: string
                     example: success
                   data:
-                    $ref: "#/components/schemas/thread" 
+                    $ref: "#/components/schemas/thread"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /threads/{threadId}:
     parameters:
       - in: path
@@ -150,7 +150,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               type: object
               properties:
                 message:
@@ -172,15 +172,15 @@ paths:
                     type: object
                     example: null
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /messages/{messageId}:
     parameters:
-        - in: path
-          name: messageId
-          schema:
-            type: string
-          example: 5284267ade
-          required: true
+      - in: path
+        name: messageId
+        schema:
+          type: string
+        example: 5284267ade
+        required: true
     delete:
       tags: [Content]
       responses:
@@ -214,4 +214,4 @@ paths:
                         type: string
                         example: You may not delete this message
       security:
-      - bearerAuth: []
+        - bearerAuth: []
