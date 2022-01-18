@@ -11,19 +11,25 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    author:
+    role:
+      type: string
+      example: admin
+      enum: [admin, moderator, author, reader]
+    user:
       type: object
       properties:
-        id:
+        userId:
           type: string
           example: c35522906a
         displayname:
           type: string
           example: Mr. Foo
+        role:
+          $ref: "#/components/schemas/role"
     thread:
       type: object
       properties:
-        id:
+        threadId:
           type: string
           example: 104ab42f11
         title:
@@ -32,17 +38,22 @@ components:
     message:
       type: object
       properties:
-        id:
+        messageId:
           type: string
           example: 5284267ade
         timestamp:
           type: integer
           example: 1642532293
         author:
-          $ref: "#/components/schemas/author"
+          $ref: "#/components/schemas/user"
         text:
           type: string
+          description: "Null if deleted is true"
           example: Hello forum!
+        deleted:
+          type: boolean
+          description: "True if text is null"
+          example: false
 
 paths:
   /threads:
@@ -65,6 +76,7 @@ paths:
                       $ref: "#/components/schemas/thread"
     post:
       tags: [Content]
+      summary: New thread
       requestBody:
         content:
           application/json:
@@ -75,8 +87,24 @@ paths:
                   type: string
                   example: Forum etiquette
       responses:
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: You may not create threads
         409:
-          description: Conflict (already exists)
+          description: Conflict
           content:
             application/json:
               schema:
@@ -163,6 +191,7 @@ paths:
                         example: No such thread
     post:
       tags: [Content]
+      summary: New message
       requestBody:
         content:
           application/json:
@@ -187,6 +216,22 @@ paths:
                   data:
                     type: object
                     example: null
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: You may not post messages here
       security:
         - bearerAuth: []
   /messages/{messageId}:
@@ -245,5 +290,139 @@ paths:
                       messageId:
                         type: string
                         example: No such message
+      security:
+        - bearerAuth: []
+  /users:
+    get:
+      tags: [Users]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          example: 2
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/user"
+                      previousPage:
+                        type: integer
+                        example: 1
+                      nextPage:
+                        type: integer
+                        example: null
+    post:
+      tags: [Users]
+      summary: Register
+      responses:
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: Already registered
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: null
+      security:
+        - bearerAuth: []
+  /users/{userId}:
+    parameters:
+      - in: path
+        name: userId
+        schema:
+          type: string
+        example: c35522906a
+        required: true
+    put:
+      tags: [Users]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  $ref: "#/components/schemas/role"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: null
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      role:
+                        type: string
+                        example: You may not change the role of this user
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: No such user
       security:
         - bearerAuth: []
