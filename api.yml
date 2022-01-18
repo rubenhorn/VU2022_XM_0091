@@ -3,7 +3,6 @@ info:
   version: 0.1.0
   title: Forum API
   description: Implements JSend specification
-
 components:
   securitySchemes:
     bearerAuth:
@@ -14,7 +13,11 @@ components:
     role:
       type: string
       example: admin
-      enum: [admin, moderator, author, reader]
+      enum:
+        - admin
+        - moderator
+        - author
+        - reader
     user:
       type: object
       properties:
@@ -25,7 +28,7 @@ components:
           type: string
           example: Mr. Foo
         role:
-          $ref: "#/components/schemas/role"
+          $ref: '#/components/schemas/role'
     thread:
       type: object
       properties:
@@ -45,22 +48,22 @@ components:
           type: integer
           example: 1642532293
         author:
-          $ref: "#/components/schemas/user"
+          $ref: '#/components/schemas/user'
         text:
           type: string
-          description: "Null if deleted is true"
+          description: 'Null if deleted is true'
           example: Hello forum!
         deleted:
           type: boolean
-          description: "True if text is null"
+          description: 'True if text is null'
           example: false
-
 paths:
   /threads:
     get:
-      tags: [Content]
+      tags:
+        - Content
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -73,9 +76,10 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/thread"
+                      $ref: '#/components/schemas/thread'
     post:
-      tags: [Content]
+      tags:
+        - Content
       summary: New thread
       requestBody:
         content:
@@ -87,7 +91,19 @@ paths:
                   type: string
                   example: Forum etiquette
       responses:
-        403:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: '#/components/schemas/thread'
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -103,7 +119,7 @@ paths:
                       userId:
                         type: string
                         example: You may not create threads
-        409:
+        '409':
           description: Conflict
           content:
             application/json:
@@ -119,21 +135,9 @@ paths:
                       title:
                         type: string
                         example: A thread with this title already exists
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  data:
-                    $ref: "#/components/schemas/thread"
       security:
         - bearerAuth: []
-  /threads/{threadId}:
+  '/threads/{threadId}':
     parameters:
       - in: path
         name: threadId
@@ -142,7 +146,8 @@ paths:
         example: 104ab42f11
         required: true
     get:
-      tags: [Content]
+      tags:
+        - Content
       parameters:
         - in: query
           name: page
@@ -150,7 +155,7 @@ paths:
             type: integer
           example: 2
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -166,14 +171,14 @@ paths:
                       messages:
                         type: array
                         items:
-                          $ref: "#/components/schemas/message"
+                          $ref: '#/components/schemas/message'
                       previousPage:
                         type: integer
                         example: 1
                       nextPage:
                         type: integer
                         example: null
-        404:
+        '404':
           description: Not Found
           content:
             application/json:
@@ -190,7 +195,8 @@ paths:
                         type: string
                         example: No such thread
     post:
-      tags: [Content]
+      tags:
+        - Content
       summary: New message
       requestBody:
         content:
@@ -203,7 +209,7 @@ paths:
                   example: Hello forum!
         required: true
       responses:
-        201:
+        '201':
           description: Created
           content:
             application/json:
@@ -216,7 +222,7 @@ paths:
                   data:
                     type: object
                     example: null
-        403:
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -234,7 +240,7 @@ paths:
                         example: You may not post messages here
       security:
         - bearerAuth: []
-  /messages/{messageId}:
+  '/messages/{messageId}':
     parameters:
       - in: path
         name: messageId
@@ -243,9 +249,10 @@ paths:
         example: 5284267ade
         required: true
     delete:
-      tags: [Content]
+      tags:
+        - Content
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -258,7 +265,7 @@ paths:
                   data:
                     type: object
                     example: null
-        403:
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -274,7 +281,7 @@ paths:
                       messageId:
                         type: string
                         example: You may not delete this message
-        404:
+        '404':
           description: Not Found
           content:
             application/json:
@@ -294,7 +301,8 @@ paths:
         - bearerAuth: []
   /users:
     get:
-      tags: [Users]
+      tags:
+        - Users
       parameters:
         - in: query
           name: page
@@ -302,7 +310,7 @@ paths:
             type: integer
           example: 2
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -318,7 +326,7 @@ paths:
                       users:
                         type: array
                         items:
-                          $ref: "#/components/schemas/user"
+                          $ref: '#/components/schemas/user'
                       previousPage:
                         type: integer
                         example: 1
@@ -326,10 +334,24 @@ paths:
                         type: integer
                         example: null
     post:
-      tags: [Users]
+      tags:
+        - Users
       summary: Register
       responses:
-        409:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: null
+        '409':
           description: Conflict
           content:
             application/json:
@@ -345,22 +367,9 @@ paths:
                       userId:
                         type: string
                         example: Already registered
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  data:
-                    type: object
-                    example: null
       security:
         - bearerAuth: []
-  /users/{userId}:
+  '/users/{userId}':
     parameters:
       - in: path
         name: userId
@@ -369,7 +378,8 @@ paths:
         example: c35522906a
         required: true
     put:
-      tags: [Users]
+      tags:
+        - Users
       requestBody:
         content:
           application/json:
@@ -377,9 +387,9 @@ paths:
               type: object
               properties:
                 role:
-                  $ref: "#/components/schemas/role"
+                  $ref: '#/components/schemas/role'
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -392,7 +402,7 @@ paths:
                   data:
                     type: object
                     example: null
-        403:
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -408,7 +418,7 @@ paths:
                       role:
                         type: string
                         example: You may not change the role of this user
-        404:
+        '404':
           description: Not Found
           content:
             application/json:
