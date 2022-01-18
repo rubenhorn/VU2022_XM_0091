@@ -145,6 +145,22 @@ paths:
                       nextPage:
                         type: integer
                         example: null
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      threadId:
+                        type: string
+                        example: No such thread
     post:
       tags: [Content]
       requestBody:
@@ -213,5 +229,21 @@ paths:
                       messageId:
                         type: string
                         example: You may not delete this message
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  data:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        example: No such message
       security:
         - bearerAuth: []
