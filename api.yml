@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 0.1.0
-  title: Forum API
+  title: k8s-chan API
   description: Implements JSend specification
 components:
   securitySchemes:
@@ -11,6 +11,7 @@ components:
       bearerFormat: JWT
   schemas:
     role:
+      deprecated: true
       type: string
       example: admin
       enum:
@@ -19,6 +20,7 @@ components:
         - author
         - reader
     user:
+      deprecated: true
       type: object
       properties:
         userId:
@@ -48,7 +50,8 @@ components:
           type: integer
           example: 1642532293
         author:
-          $ref: "#/components/schemas/user"
+          type: string
+          example: Mr. Foo
         text:
           type: string
           description: "Null if deleted is true"
@@ -103,22 +106,6 @@ paths:
                     example: success
                   data:
                     $ref: "#/components/schemas/thread"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: fail
-                  data:
-                    type: object
-                    properties:
-                      userId:
-                        type: string
-                        example: You may not create threads
         "409":
           description: Conflict
           content:
@@ -135,8 +122,6 @@ paths:
                       title:
                         type: string
                         example: A thread with this title already exists
-      security:
-        - bearerAuth: []
   "/threads/{threadId}":
     parameters:
       - in: path
@@ -222,8 +207,8 @@ paths:
                   data:
                     type: object
                     example: null
-        "403":
-          description: Forbidden
+        "404":
+          description: Not found
           content:
             application/json:
               schema:
@@ -235,11 +220,9 @@ paths:
                   data:
                     type: object
                     properties:
-                      userId:
+                      threadId:
                         type: string
-                        example: You may not post messages here
-      security:
-        - bearerAuth: []
+                        example: No such thread
   "/threads/{threadId}/{messageId}":
     parameters:
       - in: path
@@ -257,6 +240,14 @@ paths:
     delete:
       tags:
         - Content
+      parameters:
+        - in: query
+          name: adminPw
+          description: The administrator password
+          schema:
+            type: string
+          example: I_run_4rch_btw
+          required: true
       responses:
         "200":
           description: OK
@@ -303,10 +294,9 @@ paths:
                       messageId:
                         type: string
                         example: No such message
-      security:
-        - bearerAuth: []
   /users:
     get:
+      deprecated: true
       tags:
         - Users
       parameters:
@@ -340,6 +330,7 @@ paths:
                         type: integer
                         example: null
     post:
+      deprecated: true
       tags:
         - Users
       summary: Register
@@ -384,6 +375,7 @@ paths:
         example: c35522906a
         required: true
     put:
+      deprecated: true
       tags:
         - Users
       requestBody:
