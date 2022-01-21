@@ -20,10 +20,10 @@ import mongoose from "mongoose";
  * Mongoose Connection configurations
  */
 const options = {
-  // useCreateIndex: true,
-  // useNewUrlParser: true,
-  // useFindAndModify: false,
-  // useUnifiedTopology: true,
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
 };
 
 /**

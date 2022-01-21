@@ -1,5 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import crypto from "crypto";
+import mongoose, { Schema, Document } from "mongoose";
 
 /**
  * Type declaration for Thread Schema Fields
@@ -19,7 +18,11 @@ const ThreadSchema: Schema = new Schema({
   title: { type: String, required: true },
   created: { type: Date, default: Date.now },
   updated: { type: Date },
-  posted_by: { type: Schema.Types.ObjectId, ref: "User" },
+  posted_by: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: "User is required",
+  },
 });
 
 const Thread = mongoose.model<IThreadDocument>("Thread", ThreadSchema);

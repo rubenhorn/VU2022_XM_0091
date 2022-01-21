@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from "express";
 /**
  * Model Schema
  */
-import Thread from "../models/thread.model";
+import Message from "../models/message.model";
 
 /**
  * Helpers for sucess and error responses
@@ -15,16 +15,16 @@ import { handleSuccess, handleError } from "../helpers/responseHandler";
 import RequestMiddleware from "../interfaces/express";
 
 /**
- * Create a thread in the database
+ * Create a message in the database
  *
  * @param req
  * @param res
  */
 export const create = async (req: Request, res: Response) => {
   try {
-    const thread = new Thread(req.body);
+    const message = new Message(req.body);
 
-    const response = await thread.save();
+    const response = await message.save();
 
     return res.status(200).json(handleSuccess(response));
   } catch (err) {
@@ -33,23 +33,23 @@ export const create = async (req: Request, res: Response) => {
 };
 
 /**
- * Retreive all threads from the database
+ * Retreive all messages from the database
  *
  * @param req
  * @param res
  */
 export const list = async (req: Request, res: Response) => {
   try {
-    const threads = await Thread.find({});
+    const messages = await Message.find({});
 
-    return res.status(200).json(handleSuccess(threads));
+    return res.status(200).json(handleSuccess(messages));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }
 };
 
 /**
- * Retreive a thread by ID from the database
+ * Retreive a message by ID from the database
  *
  * @param req
  * @param res
@@ -57,18 +57,16 @@ export const list = async (req: Request, res: Response) => {
 export const show = async (req: RequestMiddleware, res: Response) => {
   try {
     const { id } = req.params;
-    const thread = await Thread.findById(id).select(
-      "_id title created posted_by"
-    );
+    const message = await await Message.findById(id).select("_id body created");
 
-    return res.status(200).json(handleSuccess(thread));
+    return res.status(200).json(handleSuccess(message));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }
 };
 
 /**
- * Update a thread by ID
+ * Update a message by ID
  *
  * @param req
  * @param res
@@ -76,16 +74,18 @@ export const show = async (req: RequestMiddleware, res: Response) => {
 export const update = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const thread = await Thread.findByIdAndUpdate(id, req.body, { new: true });
+    const message = await Message.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-    return res.status(200).json(handleSuccess(thread));
+    return res.status(200).json(handleSuccess(message));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }
 };
 
 /**
- * Delete a thread by ID
+ * Delete a message by ID
  *
  * @param req
  * @param res
@@ -93,9 +93,9 @@ export const update = async (req: Request, res: Response) => {
 export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const thread = await Thread.deleteOne({ _id: id });
+    const message = await Message.deleteOne({ _id: id });
 
-    return res.status(200).json(handleSuccess(thread));
+    return res.status(200).json(handleSuccess(message));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }

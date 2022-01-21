@@ -83,54 +83,12 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 /**
- * Clears the token from the response cookies
- * and responds with a 200 status
- *
- * @param req
- * @param res
- */
-export const signout = async (req: Request, res: Response) => {
-  const accessToken = req.params.accessToken;
-
-  /**
-   * If there is an access token, run the signout with google function
-   */
-  if (accessToken) return signoutwithGoogle(accessToken, res);
-
-  res.clearCookie("t");
-  return res.status(200).json(handleSuccess("Signed out"));
-};
-
-/**
- * Clears the Google access token from the DB
- *
- * @param {string} accessToken
- * @param {Response} res
- */
-const signoutwithGoogle = async (accessToken: string, res: Response) => {
-  try {
-    const user = await User.findOneAndUpdate(
-      { accessToken },
-      { $set: { accessToken: null } },
-      { new: true }
-    );
-
-    res.clearCookie("t");
-
-    return res.status(200).json(handleSuccess(user));
-  } catch (err) {
-    console.log("error signing out with google: ", err);
-    return res.status(200).json(handleError(err));
-  }
-};
-
-/**
  * Ensure a user is signed in before continuing
  */
 export const requireSignin = expressJwt({
   secret: config.jwtSecret,
   userProperty: "auth",
-  algorithms: [],
+  algorithms: ["HS256"],
 });
 
 /**
@@ -144,6 +102,8 @@ export const hasAuthorization = (
 ) => {
   const authorized =
     req.profile && req.auth && req.profile._id.toString() === req.auth._id;
+
+  console.log(req.auth, req.profile);
 
   if (!authorized) {
     return res

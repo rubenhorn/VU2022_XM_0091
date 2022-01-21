@@ -13,7 +13,9 @@ import cors from "cors";
  * Import Routes
  */
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 import threadRoutes from "./routes/thread.routes";
+import messageRoutes from "./routes/message.routes";
 
 /**
  * Declare express app
@@ -54,5 +56,7 @@ app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
  */
 app.use("/", userRoutes);
 app.use("/", threadRoutes);
+app.use("/", authRoutes);
+app.use("/", messageRoutes);
 
 export default app;
