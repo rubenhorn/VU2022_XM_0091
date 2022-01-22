@@ -7,12 +7,17 @@ const prefix = "/api/message";
 
 /**
  * @method POST - Create a new message
- * @method GET - List all messages
+ */
+router.route(prefix).post(authCtrl.requireSignin, messageCtrl.create);
+
+/**
+ * @method GET - List all messages within a thread
+ * @method DELETE - Delete all messages within a thread
  */
 router
-  .route(prefix)
-  .post(messageCtrl.create)
-  .get(authCtrl.requireSignin, messageCtrl.list);
+  .route(`${prefix}/:threadId`)
+  .get(messageCtrl.listByThread)
+  .delete(messageCtrl.deleteByThread);
 
 /**
  * @method GET - Message By ID
@@ -28,5 +33,7 @@ router
     authCtrl.hasAuthorization,
     messageCtrl.remove
   );
+
+router.param("id", messageCtrl.messageByID);
 
 export default router;

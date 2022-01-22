@@ -38,9 +38,10 @@ export const create = async (req: Request, res: Response) => {
  * @param req
  * @param res
  */
-export const list = async (req: Request, res: Response) => {
+export const listByThread = async (req: Request, res: Response) => {
   try {
-    const messages = await Message.find({});
+    const { threadId } = req.params;
+    const messages = await Message.find({ thread: threadId });
 
     return res.status(200).json(handleSuccess(messages));
   } catch (err) {
@@ -49,17 +50,36 @@ export const list = async (req: Request, res: Response) => {
 };
 
 /**
- * Retreive a message by ID from the database
+ * Returns the message object within the express middleware
  *
  * @param req
  * @param res
  */
 export const show = async (req: RequestMiddleware, res: Response) => {
+  return res.status(200).json(handleSuccess(req.message));
+};
+
+/**
+ * Retreive a message by ID from the database
+ * and append to the req.profile
+ *
+ * @param req
+ * @param res
+ */
+export const messageByID = async (
+  req: RequestMiddleware,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
-    const message = await await Message.findById(id).select("_id body created");
+    const message = await Message.findById(id).select(
+      "_id body created posted_by thread"
+    );
 
-    return res.status(200).json(handleSuccess(message));
+    req.message = message;
+    req.profile = { _id: message.posted_by.toString() };
+    next();
   } catch (err) {
     return res.status(400).json(handleError(err));
   }
@@ -94,6 +114,23 @@ export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const message = await Message.deleteOne({ _id: id });
+
+    return res.status(200).json(handleSuccess(message));
+  } catch (err) {
+    return res.status(400).json(handleError(err));
+  }
+};
+
+/**
+ * Delete a message by it's thread ID
+ *
+ * @param req
+ * @param res
+ */
+export const deleteByThread = async (req: Request, res: Response) => {
+  try {
+    const { threadId } = req.params;
+    const message = await Message.deleteMany({ thread: threadId });
 
     return res.status(200).json(handleSuccess(message));
   } catch (err) {

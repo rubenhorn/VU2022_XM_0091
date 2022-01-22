@@ -7,6 +7,8 @@ import { Request, Response, NextFunction } from "express";
  * Model Schema
  */
 import User from "../models/user.model";
+import Thread from "../models/thread.model";
+import Message from "../models/message.model";
 
 /**
  * Helpers for sucess and error responses
@@ -109,9 +111,11 @@ export const update = async (req: Request, res: Response) => {
 export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const message = await Message.deleteMany({ posted_by: id });
+    const thread = await Thread.deleteMany({ posted_by: id });
     const user = await User.deleteOne({ _id: id });
 
-    return res.status(200).json(handleSuccess(user));
+    return res.status(200).json(handleSuccess({ user, message, thread }));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }

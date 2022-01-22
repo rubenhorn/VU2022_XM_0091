@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from "express";
  * Model Schema
  */
 import Thread from "../models/thread.model";
+import Message from "../models/message.model";
 
 /**
  * Helpers for sucess and error responses
@@ -49,22 +50,13 @@ export const list = async (req: Request, res: Response) => {
 };
 
 /**
- * Retreive a thread by ID from the database
+ * Returns the thread object within the express middleware
  *
  * @param req
  * @param res
  */
 export const show = async (req: RequestMiddleware, res: Response) => {
-  try {
-    const { id } = req.params;
-    const thread = await Thread.findById(id).select(
-      "_id title created posted_by"
-    );
-
-    return res.status(200).json(handleSuccess(thread));
-  } catch (err) {
-    return res.status(400).json(handleError(err));
-  }
+  return res.status(200).json(handleSuccess(req.thread));
 };
 
 /**
@@ -81,11 +73,11 @@ export const threadByID = async (
 ) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const thread = await Thread.findById(id).select(
       "_id title created posted_by"
     );
 
+    req.thread = thread;
     req.profile = { _id: thread.posted_by.toString() };
     next();
   } catch (err) {
@@ -119,9 +111,10 @@ export const update = async (req: Request, res: Response) => {
 export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const message = await Message.deleteMany({ thread: id });
     const thread = await Thread.deleteOne({ _id: id });
 
-    return res.status(200).json(handleSuccess(thread));
+    return res.status(200).json(handleSuccess({ thread, message }));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }

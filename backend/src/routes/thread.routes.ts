@@ -11,8 +11,8 @@ const prefix = "/api/thread";
  */
 router
   .route(prefix)
-  .post(threadCtrl.create)
-  .get(authCtrl.requireSignin, threadCtrl.list);
+  .post(authCtrl.requireSignin, threadCtrl.create)
+  .get(threadCtrl.list);
 
 /**
  * @method GET - Thread By ID

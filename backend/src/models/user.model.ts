@@ -6,12 +6,12 @@ import crypto from "crypto";
  */
 export interface IUserDocument extends Document {
   _id: string;
-  name?: string;
-  created?: Date;
-  updated?: Date;
-  email?: string;
-  hashed_password?: string;
-  salt?: string;
+  name: string;
+  created: Date;
+  updated: Date;
+  email: string;
+  hashed_password: string;
+  salt: string;
 }
 
 /**

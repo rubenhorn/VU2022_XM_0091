@@ -8,17 +8,27 @@ export interface IMessageDocument extends Document {
   body: string;
   created: Date;
   updated: Date;
-  message: mongoose.Types.ObjectId;
+  thread: mongoose.Types.ObjectId;
+  posted_by: mongoose.Types.ObjectId;
 }
 
 /**
  * Schema for a Message
  */
 const MessageSchema: Schema = new Schema({
-  body: { type: String, required: true },
+  body: { type: String, required: "Body is required" },
   created: { type: Date, default: Date.now },
   updated: { type: Date },
-  message: { type: Schema.Types.ObjectId, ref: "User" },
+  thread: {
+    type: Schema.Types.ObjectId,
+    ref: "Thread",
+    required: "Thread is required",
+  },
+  posted_by: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: "User is requied",
+  },
 });
 
 const Message = mongoose.model<IMessageDocument>("Message", MessageSchema);
