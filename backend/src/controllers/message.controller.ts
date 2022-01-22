@@ -40,8 +40,8 @@ export const create = async (req: Request, res: Response) => {
  */
 export const listByThread = async (req: Request, res: Response) => {
   try {
-    const { threadId } = req.params;
-    const messages = await Message.find({ thread: threadId });
+    const { id } = req.params;
+    const messages = await Message.find({ thread: id });
 
     return res.status(200).json(handleSuccess(messages));
   } catch (err) {
@@ -72,8 +72,8 @@ export const messageByID = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
-    const message = await Message.findById(id).select(
+    const { messageId } = req.params;
+    const message = await Message.findById(messageId).select(
       "_id body created posted_by thread"
     );
 
@@ -93,8 +93,8 @@ export const messageByID = async (
  */
 export const update = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const message = await Message.findByIdAndUpdate(id, req.body, {
+    const { messageId } = req.params;
+    const message = await Message.findByIdAndUpdate(messageId, req.body, {
       new: true,
     });
 
@@ -112,8 +112,8 @@ export const update = async (req: Request, res: Response) => {
  */
 export const remove = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const message = await Message.deleteOne({ _id: id });
+    const { messageId } = req.params;
+    const message = await Message.deleteOne({ _id: messageId });
 
     return res.status(200).json(handleSuccess(message));
   } catch (err) {
@@ -129,8 +129,8 @@ export const remove = async (req: Request, res: Response) => {
  */
 export const deleteByThread = async (req: Request, res: Response) => {
   try {
-    const { threadId } = req.params;
-    const message = await Message.deleteMany({ thread: threadId });
+    const { id } = req.params;
+    const message = await Message.deleteMany({ thread: id });
 
     return res.status(200).json(handleSuccess(message));
   } catch (err) {

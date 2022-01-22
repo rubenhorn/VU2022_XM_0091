@@ -1,5 +1,6 @@
 import express from "express";
 import * as messageCtrl from "../controllers/message.controller";
+import * as threadCtrl from "../controllers/thread.controller";
 import * as authCtrl from "../controllers/auth.controller";
 
 const router = express.Router();
@@ -15,9 +16,13 @@ router.route(prefix).post(authCtrl.requireSignin, messageCtrl.create);
  * @method DELETE - Delete all messages within a thread
  */
 router
-  .route(`${prefix}/:threadId`)
+  .route(`${prefix}/by/:id`)
   .get(messageCtrl.listByThread)
-  .delete(messageCtrl.deleteByThread);
+  .delete(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    messageCtrl.deleteByThread
+  );
 
 /**
  * @method GET - Message By ID
@@ -25,7 +30,7 @@ router
  * @method DELETE - Delete a message by ID
  */
 router
-  .route(`${prefix}/:id`)
+  .route(`${prefix}/:messageId`)
   .get(messageCtrl.show)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, messageCtrl.update)
   .delete(
@@ -34,6 +39,7 @@ router
     messageCtrl.remove
   );
 
-router.param("id", messageCtrl.messageByID);
+router.param("messageId", messageCtrl.messageByID);
+router.param("id", threadCtrl.threadByID);
 
 export default router;
