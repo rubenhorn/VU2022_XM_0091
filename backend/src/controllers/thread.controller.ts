@@ -68,6 +68,32 @@ export const show = async (req: RequestMiddleware, res: Response) => {
 };
 
 /**
+ * Retreive a thread by ID from the database
+ * and append to the req.profile
+ *
+ * @param req
+ * @param res
+ */
+export const threadByID = async (
+  req: RequestMiddleware,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const thread = await Thread.findById(id).select(
+      "_id title created posted_by"
+    );
+
+    req.profile = { _id: thread.posted_by.toString() };
+    next();
+  } catch (err) {
+    return res.status(400).json(handleError(err));
+  }
+};
+
+/**
  * Update a thread by ID
  *
  * @param req

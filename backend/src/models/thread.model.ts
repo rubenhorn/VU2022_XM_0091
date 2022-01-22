@@ -15,7 +15,7 @@ export interface IThreadDocument extends Document {
  * Schema for a Thread
  */
 const ThreadSchema: Schema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: "Title is required" },
   created: { type: Date, default: Date.now },
   updated: { type: Date },
   posted_by: {

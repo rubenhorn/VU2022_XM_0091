@@ -7,7 +7,7 @@ import RequestMiddleware from "../interfaces/express";
 /**
  * Model Schema
  */
-import User from "../models/user.model";
+import User, { IUser } from "../models/user.model";
 
 /**
  * JSON Web token imports
@@ -103,8 +103,6 @@ export const hasAuthorization = (
   const authorized =
     req.profile && req.auth && req.profile._id.toString() === req.auth._id;
 
-  console.log(req.auth, req.profile);
-
   if (!authorized) {
     return res
       .status(403)
@@ -121,18 +119,22 @@ export const hasAuthorization = (
  * @param {Response} res
  */
 export const getUser = async (req: RequestMiddleware, res: Response) => {
-  /**
-   * Find a user with this email
-   */
-  const user: any = await User.findById(req.auth._id);
+  try {
+    /**
+     * Find a user with this email
+     */
+    const user: IUser = await User.findById(req.auth._id);
 
-  /**
-   * Return a 200 response with the token and user
-   */
-  return res.status(200).json(
-    handleSuccess({
-      token: req.params.token,
-      user: { name: user.name, email: user.email, _id: user._id },
-    })
-  );
+    /**
+     * Return a 200 response with the token and user
+     */
+    return res.status(200).json(
+      handleSuccess({
+        token: req.params.token,
+        user: { name: user.name, email: user.email, _id: user._id },
+      })
+    );
+  } catch (err) {
+    return res.status(403).json(handleError(err));
+  }
 };

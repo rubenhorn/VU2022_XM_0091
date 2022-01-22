@@ -40,7 +40,7 @@ export const create = async (req: Request, res: Response) => {
  */
 export const list = async (req: Request, res: Response) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).select("_id name email created");
 
     return res.status(200).json(handleSuccess(users));
   } catch (err) {
@@ -90,7 +90,9 @@ export const userByID = async (
 export const update = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    const user = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    }).select("_id name email created");
 
     return res.status(200).json(handleSuccess(user));
   } catch (err) {

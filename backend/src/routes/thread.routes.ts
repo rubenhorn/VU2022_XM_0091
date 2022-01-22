@@ -25,4 +25,6 @@ router
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, threadCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, threadCtrl.remove);
 
+router.param("id", threadCtrl.threadByID);
+
 export default router;

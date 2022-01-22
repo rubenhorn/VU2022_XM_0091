@@ -6,12 +6,12 @@ import crypto from "crypto";
  */
 export interface IUserDocument extends Document {
   _id: string;
-  name: string;
-  created: Date;
-  updated: Date;
-  email: string;
-  hashed_password: string;
-  salt: string;
+  name?: string;
+  created?: Date;
+  updated?: Date;
+  email?: string;
+  hashed_password?: string;
+  salt?: string;
 }
 
 /**
@@ -26,13 +26,16 @@ export interface IUser extends IUserDocument {
 /**
  * Schema for a user
  */
-const UserSchema: Schema = new Schema({
-  name: { type: String, required: true },
+const UserSchema: Schema<IUser> = new Schema({
+  name: {
+    type: String,
+    required: "Username is required",
+    unique: "Username already exists",
+  },
   created: { type: Date, default: Date.now },
   updated: { type: Date },
   email: {
     type: String,
-    // trim: true,
     unique: "Email already exists",
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
     required: "Email is required",
@@ -73,22 +76,17 @@ UserSchema.path("hashed_password").validate(function () {
 /**
  * Declaring methods for the User Schema
  */
-
 UserSchema.methods = {
   authenticate(plainText: string) {
-    // @ts-ignore
     return this.encryptPassword(plainText) === this.hashed_password;
   },
   encryptPassword(password: string) {
     if (!password) return "";
     try {
-      return (
-        crypto
-          // @ts-ignore
-          .createHmac("sha1", this.salt)
-          .update(password)
-          .digest("hex")
-      );
+      return crypto
+        .createHmac("sha1", this.salt)
+        .update(password)
+        .digest("hex");
     } catch (err) {
       return "";
     }
