@@ -26,7 +26,11 @@ export const create = async (req: Request, res: Response) => {
 
     const response = await message.save();
 
-    return res.status(200).json(handleSuccess(response));
+    const createdMessage = await Message.findById(response._id)
+      .select("_id body created posted_by thread")
+      .populate("posted_by", "name");
+
+    return res.status(200).json(handleSuccess(createdMessage));
   } catch (err) {
     return res.status(400).json(handleError(err));
   }
@@ -41,7 +45,10 @@ export const create = async (req: Request, res: Response) => {
 export const listByThread = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const messages = await Message.find({ thread: id });
+    const messages = await Message.find({ thread: id }).populate(
+      "posted_by",
+      "name"
+    );
 
     return res.status(200).json(handleSuccess(messages));
   } catch (err) {
@@ -73,12 +80,13 @@ export const messageByID = async (
 ) => {
   try {
     const { messageId } = req.params;
-    const message = await Message.findById(messageId).select(
-      "_id body created posted_by thread"
-    );
+    const message = await Message.findById(messageId)
+      .select("_id body created posted_by thread")
+      .populate("posted_by", "name");
 
     req.message = message;
-    req.profile = { _id: message.posted_by.toString() };
+    // @ts-ignore
+    req.profile = { _id: message.posted_by._id.toString() };
     next();
   } catch (err) {
     return res.status(400).json(handleError(err));

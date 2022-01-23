@@ -74,7 +74,12 @@ export const signin = async (req: Request, res: Response) => {
     return res.status(200).json(
       handleSuccess({
         token,
-        user: { name: user.name, email: user.email, _id: user._id },
+        user: {
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+          created: user.created,
+        },
       })
     );
   } catch (err) {

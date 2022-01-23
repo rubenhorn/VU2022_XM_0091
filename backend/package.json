@@ -1,5 +1,5 @@
 {
-  "name": "sc_backend",
+  "name": "software-containerization-backend",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",

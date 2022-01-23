@@ -41,7 +41,7 @@ export const create = async (req: Request, res: Response) => {
  */
 export const list = async (req: Request, res: Response) => {
   try {
-    const threads = await Thread.find({});
+    const threads = await Thread.find({}).populate("posted_by", "name");
 
     return res.status(200).json(handleSuccess(threads));
   } catch (err) {
@@ -73,12 +73,13 @@ export const threadByID = async (
 ) => {
   try {
     const { id } = req.params;
-    const thread = await Thread.findById(id).select(
-      "_id title created posted_by"
-    );
-
+    const thread = await Thread.findById(id)
+      .select("_id title created posted_by")
+      .populate("posted_by", "name");
+    console.log(thread);
     req.thread = thread;
-    req.profile = { _id: thread.posted_by.toString() };
+    // @ts-ignore
+    req.profile = { _id: thread.posted_by._id.toString() };
     next();
   } catch (err) {
     return res.status(400).json(handleError(err));
