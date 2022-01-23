@@ -1,0 +1,49 @@
+{
+  "short_name": "Articles",
+  "name": "Articles App",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "minimal-ui",
+  "theme_color": "#2196f3",
+  "background_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "View Articles",
+      "short_name": "Articles",
+      "description": "View a list of articles",
+      "url": "/",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Login to the application",
+      "url": "/login",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Register",
+      "short_name": "Register",
+      "description": "Sign up to the application",
+      "url": "/register",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    }
+  ]
+}
