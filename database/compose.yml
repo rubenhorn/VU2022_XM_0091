@@ -3,6 +3,7 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
+    # No volumes specified -> ephemeral db for testing
     ports:
       - 27017:27017
     restart: unless-stopped
