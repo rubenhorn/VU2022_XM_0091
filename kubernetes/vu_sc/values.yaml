@@ -1,0 +1,3 @@
+replicaCount: 1
+
+frontendPort: 80
