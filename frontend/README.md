@@ -1,7 +1,7 @@
 ### What you need to run this code
 
-1. Node (12.18.1)
-2. NPM (6.14.10)
+1. Node (14.15.4)
+2. NPM (7.20.3)
 
 ### How to run this code
 
