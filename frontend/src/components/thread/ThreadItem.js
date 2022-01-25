@@ -17,12 +17,9 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardContent,
   Avatar,
-  Typography,
   createStyles,
   withStyles,
-  Divider,
   Zoom,
   IconButton,
   Menu,

@@ -53,16 +53,12 @@ const styles = ({ spacing }) =>
  * @param {Theme} classes - classes passed from Material UI Theme
  */
 const Threads = ({ classes }) => {
-  const [title, setTitle] = React.useState("Threads");
-
   const [threads, setThreads] = React.useState([]);
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
-  const [defaultValueIndex, setDefaultValueIndex] = React.useState(null);
-  const [defaultAuthorValueIndex, setDefaultAuthorValueIndex] =
-    React.useState(null);
+  React.useState(null);
   const isAuthed = auth.isAuthenticated();
 
   /**
@@ -104,7 +100,7 @@ const Threads = ({ classes }) => {
   if (error !== "") return <EmptyState message={error} action={load} />;
   return (
     <React.Fragment>
-      <Typography variant="h3">{title}</Typography>
+      <Typography variant="h3">Threads</Typography>
 
       <Grid container spacing={2}>
         {threads.map((thread, i) => {

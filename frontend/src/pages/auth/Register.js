@@ -30,8 +30,6 @@ import { Check, Error } from "@material-ui/icons";
 
 import { register } from "../../api/api-auth";
 
-import auth from "../../helpers/auth-helper";
-
 /**
  * Injected styles
  *
