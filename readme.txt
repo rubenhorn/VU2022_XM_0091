@@ -1,7 +1,5 @@
 Project for the course Software Containerization (CS Master) at VU
 
-Preview api.yml on https://editor.swagger.io/
-
 Folders:
  - /backend contains the backend of the app
  - /database contains the compose file for local development using MongoDB
