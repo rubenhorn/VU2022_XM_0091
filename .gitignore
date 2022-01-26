@@ -1,4 +1,8 @@
+# NodeJS
 node_modules/
 dist/
-.env
+**/.env
 build/
+
+# Helm
+*.tgz

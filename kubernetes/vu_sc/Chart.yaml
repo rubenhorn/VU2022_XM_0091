@@ -2,3 +2,8 @@ apiVersion: v2
 name: vu_sc
 type: application
 version: 0.1.0
+dependencies:
+- name: mongodb
+  enabled: true
+  version: 10.31.5
+  repository: https://charts.bitnami.com/bitnami

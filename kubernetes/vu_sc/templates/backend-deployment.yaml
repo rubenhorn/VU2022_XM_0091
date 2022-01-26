@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-backend
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-backend
+        # TODO get from configmap and secrets
+        env:
+        - name: JWT_SECRET
+          value: test123
+        - name: MONGO_URI
+          value: mongodb://{{ .Release.Name }}-mongodb:27017/vu-sc-db
+        # TODO get image repository from values.yaml
+        image: localhost:32000/vu_sc_backend
+        ports:
+        - containerPort: {{ .Values.backendPort }}
