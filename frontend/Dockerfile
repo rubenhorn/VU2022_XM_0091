@@ -23,5 +23,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
+# Run with unpriviledged user
+USER nginx
 # Run static http server as foreground process
 CMD ["nginx", "-g", "daemon off;"]

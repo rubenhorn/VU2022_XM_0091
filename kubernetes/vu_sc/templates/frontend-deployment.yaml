@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-frontend
-        image: vu_sc_frontend
+        # TODO get image repository from values.yaml
+        image: localhost:32000/vu_sc_frontend
         ports:
         - containerPort: {{ .Values.frontendPort }}
