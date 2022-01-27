@@ -4,7 +4,7 @@ Folders:
  - /backend contains the backend of the app
  - /database contains the compose file for local development using MongoDB
  - /frontend contains the frontend of the app
- - /kubernetes contains the files for deploying the application on a cluster
+ - /helm contains the files for deploying the application on a cluster
 
 Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes

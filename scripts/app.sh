@@ -9,7 +9,7 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-APP_NAME=vu_sc
+APP_NAME="vu-sc"
 HELM="microk8s helm3"
 
 if [ "$1" == down ]; then
@@ -18,7 +18,7 @@ if [ "$1" == down ]; then
 fi
 
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
-    $HELM upgrade $APP_NAME ../kubernetes/vu_sc
+    $HELM upgrade $APP_NAME ../helm/$APP_NAME
 else
-    $HELM install $APP_NAME ../kubernetes/vu_sc
+    $HELM install $APP_NAME ../helm/$APP_NAME
 fi
