@@ -6,3 +6,6 @@ build/
 
 # Helm
 *.tgz
+
+# Certificates
+tls/
