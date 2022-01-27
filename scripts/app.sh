@@ -9,7 +9,7 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-APP_NAME=app
+APP_NAME=vu_sc
 HELM="microk8s helm3"
 
 if [ "$1" == down ]; then

@@ -8,3 +8,4 @@ Folders:
 
 Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes
+ - Use /scripts/app.sh to manage the deployment of the app through helm
