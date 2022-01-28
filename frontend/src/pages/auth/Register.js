@@ -97,14 +97,20 @@ const Register = ({ classes, history }) => {
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
-      register({ name, email, password }).then((data) => {
-        if (data.error) {
+      register({ name, email, password })
+        .then((data) => {
+          console.log(data);
+          if (data.error) {
+            setLoading(false);
+            return setError(data.error);
+          }
+          setError("");
+          history.push("/login");
+        })
+        .catch((err) => {
           setLoading(false);
-          return setError(data.error);
-        }
-        setError("");
-        history.push("/login");
-      });
+          return setError("Error: could not connect to server");
+        });
     }
   };
 
