@@ -92,22 +92,27 @@ const Login = ({ classes, history }) => {
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
-      login({ email, password }).then((data) => {
-        if (data.error) {
-          setLoading(false);
-          return setError(data.error);
-        }
-        setError("");
-        auth.setUserDetails(data.data, (success) => {
-          if (success) {
-            if (window.location.pathname.includes("login/")) {
-              return history.push(window.location.pathname.split("login")[1]);
-            }
-            return history.push("/profile");
+      login({ email, password })
+        .then((data) => {
+          if (data.error) {
+            setLoading(false);
+            return setError(data.error);
           }
-          setError("The system encountered an error, please try again later");
+          setError("");
+          auth.setUserDetails(data.data, (success) => {
+            if (success) {
+              if (window.location.pathname.includes("login/")) {
+                return history.push(window.location.pathname.split("login")[1]);
+              }
+              return history.push("/profile");
+            }
+            setError("The system encountered an error, please try again later");
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          return setError("Error: could not connect to server");
         });
-      });
     }
   };
 
