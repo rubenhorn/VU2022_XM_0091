@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-backend
-        envFrom:
-          - configMapRef:
-            name: backend-config
         env:
+        - name: MONGO_URI
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: MONGO_URI
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
