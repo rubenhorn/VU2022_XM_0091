@@ -18,12 +18,12 @@ spec:
         - name: MONGO_URI
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: {{ .Release.Name }}-backend-config
               key: MONGO_URI
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: {{ .Release.Name }}-backend-secret
               key: JWT_SECRET
         # TODO get image repository from values.yaml
         image: localhost:32000/vu_sc_backend
