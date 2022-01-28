@@ -1,6 +1,7 @@
 replicaCount: 1
 frontendPort: 80
 backendPort: 3000
+databasePort: 27017
 
 # Subchart values
 mongodb:

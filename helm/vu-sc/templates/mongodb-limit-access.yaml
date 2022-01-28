@@ -11,3 +11,5 @@ spec:
       - podSelector:
           matchLabels:
             app: {{ .Release.Name }}-backend
+  - ports:
+    - port: {{ .Values.databasePort }}
