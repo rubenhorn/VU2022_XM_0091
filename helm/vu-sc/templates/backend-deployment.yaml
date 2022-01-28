@@ -14,12 +14,17 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-backend
-        # TODO get from configmap and secrets
         env:
-        - name: JWT_SECRET
-          value: test123
         - name: MONGO_URI
-          value: mongodb://{{ .Release.Name }}-mongodb:27017/vu-sc-db
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}-backend-config
+              key: MONGO_URI
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-backend-secret
+              key: JWT_SECRET
         # TODO get image repository from values.yaml
         image: localhost:32000/vu_sc_backend
         imagePullPolicy: Always # Ensure that updated images are applied
