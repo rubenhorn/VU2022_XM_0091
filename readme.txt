@@ -7,7 +7,8 @@ Setup:
  1. Create .env file for frontend
  2. Build container images
  3. Push container images
- 4. Install helm chart
+ 4. Apply modified traefik daemonset
+ 5. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -15,6 +16,7 @@ Folders:
  - /frontend contains the frontend of the app
  - /helm contains the files for deploying the application on a cluster
  - /scripts contains useful scripts to cut down the amount of cli interaction
+ - /traefik contains a modified daemonset for redirecting all http trafik to https
 
 Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes
