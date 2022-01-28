@@ -7,7 +7,8 @@ DOMAIN="localhost" # TODO change this when deploying to a different host
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
-cd ..
+cd ../helm/vu-sc
+
 if [ -d tls ]; then
     echo -n "Override existing files (y/n)? "
     read answer
@@ -47,10 +48,6 @@ openssl req -new -sha256 -key $(pwd)/$DOMAIN.key -out $(pwd)/$DOMAIN.csr \
 # Create certificate
 openssl x509 -req -in $(pwd)/$DOMAIN.csr -CA $ROOT_CA_CRT -CAkey $ROOT_CA_KEY -CAcreateserial -out $(pwd)/$DOMAIN.crt -days 500 -sha256 \
     --passin pass:$ROOT_CA_PASS || exit 1
-
-# Base64 encode for k8s secret
-base64 $(pwd)/$DOMAIN.crt > $(pwd)/$DOMAIN.crt.base64
-base64 $(pwd)/$DOMAIN.key > $(pwd)/$DOMAIN.key.base64
 
 # Print certificate contents for verification
 openssl x509 -in $(pwd)/$DOMAIN.crt -text -noout | less

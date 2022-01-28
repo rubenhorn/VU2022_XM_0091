@@ -1,5 +1,5 @@
 replicaCount: 1
-frontendPort: 80
+frontendPort: 3001
 backendPort: 3000
 
 # Subchart values
