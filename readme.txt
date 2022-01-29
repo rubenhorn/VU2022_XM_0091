@@ -20,3 +20,7 @@ Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes
  - Use /scripts/download-dependencies.sh to get external helm charts
  - Use /scripts/app.sh to manage the deployment of the app through helm
+
+Patching:
+ - Change the theme by running patch -p0 < theme.patch
+ - Undo the change by running the same command including the -R flag
