@@ -4,11 +4,12 @@ Prerequisites:
  - microk8s with dns, helm3, registry, storage, traefik
 
 Setup:
- 1. Build container images
- 2. Push container images
- 3. Apply modified traefik daemonset
- 4. Generate tls certificate
- 5. Install helm chart
+ 1. Create .env file for frontend
+ 2. Build container images
+ 3. Push container images
+ 4. Generate secrets
+ 5. Generate tls certificate
+ 6. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -21,5 +22,10 @@ Folders:
 Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes
  - Use /scripts/download-dependencies.sh to get external helm charts
- - Use /scripts/app.sh to manage the deployment of the app through helm
+ - Use /scripts/gen-secrets.sh to create kubernetes secrets used by helm
  - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
+ - Use /scripts/app.sh to manage the deployment of the app through helm
+
+Patching:
+ - Change the theme by running patch -p0 < theme.patch
+ - Undo the change by running the same command including the -R flag

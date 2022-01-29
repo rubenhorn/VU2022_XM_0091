@@ -12,3 +12,6 @@ build/
 *.csr
 *.key
 *.srl
+
+# Secrets
+*.secret

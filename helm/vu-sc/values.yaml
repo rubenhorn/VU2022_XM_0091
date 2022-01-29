@@ -1,8 +1,15 @@
+# NOTE keep in sync with `mongodb.global.namespaceOverride`
+namespace: development
+registry: localhost:32000
 replicaCount: 1
 frontendPort: 3001
 backendPort: 3000
 
 # Subchart values
 mongodb:
+  global:
+    # NOTE keep in sync with `namespace`
+    namespaceOverride: development
   auth:
     enabled: false
+  nameOverride: database
