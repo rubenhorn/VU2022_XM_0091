@@ -4,10 +4,11 @@ ROOT_CA_KEY="rootCA.key"
 ROOT_CA_CRT="rootCA.crt"
 DOMAIN="localhost" # TODO change this when deploying to a different host
 
+APP_NAME="vu-sc"
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
-cd ../helm/vu-sc
+cd ../helm/$APP_NAME
 
 if [ -d tls ]; then
     echo -n "Override existing files (y/n)? "
@@ -39,15 +40,15 @@ openssl req -x509 -new -nodes -key $(pwd)/$ROOT_CA_KEY -sha256 -days 1024 -out $
     --passin pass:$ROOT_CA_PASS || exit 1
 
 # Certificate key
-openssl genrsa -out $(pwd)/$DOMAIN.key 2048 || exit 1
+openssl genrsa -out $(pwd)/$APP_NAME.key 2048 || exit 1
 
 # Signing certificate request
-openssl req -new -sha256 -key $(pwd)/$DOMAIN.key -out $(pwd)/$DOMAIN.csr \
+openssl req -new -sha256 -key $(pwd)/$APP_NAME.key -out $(pwd)/$APP_NAME.csr \
     -subj "/O=vu-sc-g2/CN=$DOMAIN" || exit 1
 
 # Create certificate
-openssl x509 -req -in $(pwd)/$DOMAIN.csr -CA $ROOT_CA_CRT -CAkey $ROOT_CA_KEY -CAcreateserial -out $(pwd)/$DOMAIN.crt -days 500 -sha256 \
+openssl x509 -req -in $(pwd)/$APP_NAME.csr -CA $ROOT_CA_CRT -CAkey $ROOT_CA_KEY -CAcreateserial -out $(pwd)/$APP_NAME.crt -days 500 -sha256 \
     --passin pass:$ROOT_CA_PASS || exit 1
 
 # Print certificate contents for verification
-openssl x509 -in $(pwd)/$DOMAIN.crt -text -noout | less
+openssl x509 -in $(pwd)/$APP_NAME.crt -text -noout | less
