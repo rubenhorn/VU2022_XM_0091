@@ -51,4 +51,4 @@ openssl x509 -req -in $(pwd)/$APP_NAME.csr -CA $ROOT_CA_CRT -CAkey $ROOT_CA_KEY 
     --passin pass:$ROOT_CA_PASS || exit 1
 
 # Print certificate contents for verification
-openssl x509 -in $(pwd)/$APP_NAME.crt -text -noout | less
+{ echo -e "==================\nPress \`q' to exit\n==================\n" & openssl x509 -in $(pwd)/$APP_NAME.crt -text -noout; } | less
