@@ -17,7 +17,7 @@ mkdir secrets
 cd secrets
 
 function gen_secret {
-    openssl rand -base64 $1 | cut -c 1-$1
+    openssl rand -base64 $1 | tr -d '\n' | head -c $1
 }
  
 gen_secret 300 > jwtSecret.secret
