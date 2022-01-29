@@ -160,7 +160,7 @@ const Header = ({ history, classes, ...props }) => {
         <AppBar>
           <Toolbar className={classes.root}>
             <Button component={Link} to="/">
-              Adv JS CA2
+              k8s-chan
             </Button>
 
             <div>
