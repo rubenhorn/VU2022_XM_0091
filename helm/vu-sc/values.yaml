@@ -5,4 +5,5 @@ backendPort: 3000
 # Subchart values
 mongodb:
   auth:
-    enabled: false
+    # NOTE prefix must match release name
+    existingSecret: vu-sc-database-secret

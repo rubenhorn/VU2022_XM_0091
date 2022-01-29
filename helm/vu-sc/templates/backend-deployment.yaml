@@ -15,16 +15,26 @@ spec:
       containers:
       - name: {{ .Release.Name }}-backend
         env:
-        - name: MONGO_URI
+        - name: MONGODB_URI
           valueFrom:
             configMapKeyRef:
               name: {{ .Release.Name }}-backend-config
-              key: MONGO_URI
+              key: MONGODB_URI
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-backend-secret
               key: JWT_SECRET
+        - name: MONGODB_ROOT_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-database-secret
+              key: mongodb-root-user
+        - name: MONGODB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-database-secret
+              key: mongodb-root-password
         # TODO get image repository from values.yaml
         image: localhost:32000/vu_sc_backend
         imagePullPolicy: Always # Ensure that updated images are applied
