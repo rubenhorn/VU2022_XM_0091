@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-frontend
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,8 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-frontend
-        # TODO get image repository from values.yaml
-        image: localhost:32000/vu_sc_frontend
+        image: {{ .Values.registry }}/vu_sc_frontend
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.frontendPort }}

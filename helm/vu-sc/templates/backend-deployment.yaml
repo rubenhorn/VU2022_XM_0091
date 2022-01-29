@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-backend
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -25,8 +26,7 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-backend-secret
               key: JWT_SECRET
-        # TODO get image repository from values.yaml
-        image: localhost:32000/vu_sc_backend
+        image: {{ .Values.registry }}/vu_sc_backend
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.backendPort }}
