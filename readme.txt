@@ -7,7 +7,8 @@ Setup:
  1. Build container images
  2. Push container images
  3. Apply modified traefik daemonset
- 4. Install helm chart
+ 4. Generate tls certificate
+ 5. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -21,3 +22,4 @@ Scripts:
  - Use /scripts/build-and-push.sh to update the images for kubernetes
  - Use /scripts/download-dependencies.sh to get external helm charts
  - Use /scripts/app.sh to manage the deployment of the app through helm
+ - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
