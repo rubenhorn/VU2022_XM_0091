@@ -15,7 +15,7 @@ if [ -d tls ]; then
         exit
     fi
 fi
-rm -rf tls # TODO prompt before deleting old files
+rm -rf tls
 mkdir tls
 cd tls
 

@@ -9,3 +9,6 @@ build/
 
 # Certificates
 tls/
+
+# Secrets
+*.secret
