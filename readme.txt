@@ -4,11 +4,11 @@ Prerequisites:
  - microk8s with dns, helm3, registry, storage, traefik
 
 Setup:
- 1. Create .env file for frontend
- 2. Build container images
- 3. Push container images
- 4. Generate secrets
- 5. Generate tls certificate
+ 1. Build container images
+ 2. Push container images
+ 3. Generate secrets
+ 4. Generate tls certificate
+ 5. Apply modified traefik daemonset
  6. Install helm chart
 
 Folders:
