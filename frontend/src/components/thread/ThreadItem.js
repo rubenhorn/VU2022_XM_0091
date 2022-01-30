@@ -46,9 +46,7 @@ const styles = ({ palette, spacing }) =>
     card: {
       margin: `${spacing(4)}px auto`,
     },
-    fixedHeightCard: {
-      height: 200,
-    },
+
     avatar: {
       background: palette.secondary.main,
     },

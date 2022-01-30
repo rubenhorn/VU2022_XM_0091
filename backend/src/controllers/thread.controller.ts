@@ -76,7 +76,6 @@ export const threadByID = async (
     const thread = await Thread.findById(id)
       .select("_id title created posted_by")
       .populate("posted_by", "name");
-    console.log(thread);
     req.thread = thread;
     // @ts-ignore
     req.profile = { _id: thread.posted_by._id.toString() };
