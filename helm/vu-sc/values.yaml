@@ -4,6 +4,7 @@ registry: localhost:32000
 replicaCount: 1
 frontendPort: 3001
 backendPort: 3000
+databasePort: 27017
 
 # Subchart values
 mongodb:

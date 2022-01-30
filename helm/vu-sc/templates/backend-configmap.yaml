@@ -6,4 +6,4 @@ metadata:
   labels:
     app: {{ .Release.Name }}-backend
 data:
-  MONGO_URI: "mongodb://{{ .Release.Name }}-database:27017/vu-sc-db"
+  MONGO_URI: "mongodb://{{ .Release.Name }}-database:{{ .Values.databasePort }}/vu-sc-db"
