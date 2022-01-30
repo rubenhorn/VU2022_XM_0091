@@ -1,9 +1,17 @@
+# NOTE keep in sync with `mongodb.global.namespaceOverride`
+namespace: development
+registry: localhost:32000
 replicaCount: 1
-frontendPort: 80
+frontendPort: 3001
 backendPort: 3000
+databasePort: 27017
 
 # Subchart values
 mongodb:
+  nameOverride: database
+  global:
+    # NOTE keep in sync with `namespace`
+    namespaceOverride: development
   auth:
     # NOTE prefix must match release name
     existingSecret: vu-sc-database-secret

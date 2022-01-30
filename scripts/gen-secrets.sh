@@ -5,11 +5,13 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 cd ../helm/vu-sc
 
-if [ -d secrets ]; then
-    echo -n "Override existing files (y/n)? "
-    read answer
-    if [ "$answer" == "${answer#[Yy]}" ] ;then
-        exit
+if [[ $1 != "-y" ]]; then
+    if [ -d secrets ]; then
+        echo -n "Override existing files (y/n)? "
+        read answer
+        if [ "$answer" == "${answer#[Yy]}" ] ;then
+            exit
+        fi
     fi
 fi
 rm -rf secrets

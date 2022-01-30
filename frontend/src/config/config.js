@@ -17,5 +17,5 @@
  */
 export const config = {
   env: process.env.NODE_ENV || "development",
-  server_url: process.env.REACT_APP_SERVER_URL || "http://localhost:8000",
+  server_url: process.env.REACT_APP_SERVER_URL || "",
 };

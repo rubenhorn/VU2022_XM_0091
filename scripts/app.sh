@@ -20,5 +20,6 @@ fi
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
     $HELM upgrade $APP_NAME ../helm/$APP_NAME
 else
+    $SCRIPTPATH/gen-secrets.sh -y
     $HELM install $APP_NAME ../helm/$APP_NAME
 fi
