@@ -26,13 +26,14 @@ const options: any = {
   useUnifiedTopology: true,
 };
 
+let mongoUri = "";
+
 /**
  * Optionally include credentials to authenticate agains mongodb
  */
 if (config.mongodbRootUser.trim().length > 0) {
-  options.user = encodeURIComponent(config.mongodbRootUser);
-  options.pass = encodeURIComponent(config.mongodbRootPassword);
-  options.authSource = "admin";
+  const splittedUri = config.mongodbUri.split("mongodb://")[1];
+  mongoUri = `mongodb://${config.mongodbRootUser}:${config.mongodbRootPassword}@${splittedUri}`;
 }
 
 /**
@@ -62,6 +63,6 @@ mongoose.connect(config.mongodbUri, options, () => {
  * Listen for an error
  */
 mongoose.connection.on("error", (error) => {
-  console.error(`Error: ${ error.stack }`);
+  console.error(`Error: ${error.stack}`);
   throw new Error(`unable to connect to database: ${config.mongodbUri}`);
 });
