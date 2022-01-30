@@ -15,9 +15,18 @@ spec:
   - ports:
     - port: {{ .Values.backendPort }}
   egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: {{ .Release.Name }}-database
+    - podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+      namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
   - ports:
     - port: {{ .Values.databasePort }}
-    # allow DNS resolution
     - port: {{ $dnsPort }}
       protocol: UDP
     - port: {{ $dnsPort }}

@@ -6,15 +6,16 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: {{ .Release.Name }}-database
+      app.kubernetes.io/component: mongodb
+      app.kubernetes.io/instance: {{ .Release.Name }}
   policyTypes:
   - Ingress
   - Egress
   ingress:
   - from:
-      - podSelector:
-          matchLabels:
-            app: {{ .Release.Name }}-backend
+    - podSelector:
+        matchLabels:
+          app: {{ .Release.Name }}-backend
   - ports:
     - port: {{ .Values.databasePort }}
   egress: []
