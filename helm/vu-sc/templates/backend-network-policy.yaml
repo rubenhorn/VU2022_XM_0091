@@ -1,0 +1,24 @@
+{{ $dnsPort := 53 -}}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ .Release.Name }}-backend-network-policy
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Release.Name }}-backend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - ports:
+    - port: {{ .Values.backendPort }}
+  egress:
+  - ports:
+    - port: {{ .Values.databasePort }}
+    # allow DNS resolution
+    - port: {{ $dnsPort }}
+      protocol: UDP
+    - port: {{ $dnsPort }}
+      protocol: TCP

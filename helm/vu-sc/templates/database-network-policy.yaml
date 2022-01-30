@@ -1,11 +1,15 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: mongodb-limit-access
+  name: {{ .Release.Name }}-database-network-policy
+  namespace: {{ .Values.namespace }}
 spec:
   podSelector:
     matchLabels:
-      app: mongodb
+      app: {{ .Release.Name }}-database
+  policyTypes:
+  - Ingress
+  - Egress
   ingress:
   - from:
       - podSelector:
@@ -13,3 +17,4 @@ spec:
             app: {{ .Release.Name }}-backend
   - ports:
     - port: {{ .Values.databasePort }}
+  egress: []
