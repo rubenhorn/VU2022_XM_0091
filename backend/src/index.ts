@@ -26,14 +26,14 @@ const options: any = {
   useUnifiedTopology: true,
 };
 
-let mongoUri = "";
+let mongodbUri = config.mongodbUri;
 
 /**
  * Optionally include credentials to authenticate agains mongodb
  */
 if (config.mongodbRootUser.trim().length > 0) {
   const splittedUri = config.mongodbUri.split("mongodb://")[1];
-  mongoUri = `mongodb://${config.mongodbRootUser}:${config.mongodbRootPassword}@${splittedUri}`;
+  mongodbUri = `mongodb://${config.mongodbRootUser}:${config.mongodbRootPassword}@${splittedUri}`;
 }
 
 /**
@@ -44,7 +44,7 @@ mongoose.Promise = global.Promise;
 /**
  * Connect using the config mongodbUri and options
  */
-mongoose.connect(config.mongodbUri, options, () => {
+mongoose.connect(mongodbUri, options, () => {
   console.log("Connected to DB");
 
   /**
