@@ -25,6 +25,7 @@ Scripts:
  - Use /scripts/gen-secrets.sh to create kubernetes secrets used by helm
  - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
  - Use /scripts/app.sh to manage the deployment of the app through helm
+ - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
 
 Patching:
  - Change the theme by running patch -p0 < theme.patch
