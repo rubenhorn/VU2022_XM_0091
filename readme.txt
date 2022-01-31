@@ -25,6 +25,7 @@ Scripts:
  - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
  - Use /scripts/app.sh to manage the deployment of the app through helm
  - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
+ - Use /scripts/clean-ctr.sh to evict all images from the cache of the registry runnning at localhost:32000
 
 Patching:
  - Change the theme by running patch -p0 < theme.patch
