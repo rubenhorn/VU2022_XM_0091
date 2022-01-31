@@ -86,15 +86,18 @@ const CreateThread = ({ history, classes }) => {
       setLoading(true);
       const jwt = auth.isAuthenticated();
       if (jwt) {
-        create({ title, posted_by: jwt.user.id }, jwt.token).then((data) => {
-          if (!data || data.error || data.exception || data.message) {
+        create({ title, posted_by: jwt.user.id }, jwt.token)
+          .then((data) => {
+            if (!data || data.error || data.exception || data.message) {
+              throw new Error("Error: Could not create Thread");
+            }
+            history.push(`/thread/${data.data._id}`);
+          })
+          .catch((err) => {
             setLoading(false);
-            return setError(
-              data && data.error ? data.error : "Could not create thread"
-            );
-          }
-          history.push(`/thread/${data.data._id}`);
-        });
+
+            return setError("Could not create thread");
+          });
       } else setError("Not authenticated");
     }
   };

@@ -75,12 +75,7 @@ const Threads = ({ classes }) => {
     listThreads()
       .then((data) => {
         if (!data || data.error || data.exception || data.message) {
-          setLoading(false);
-          return setError(
-            data && data.error
-              ? Object.values(data.error)[0][0]
-              : "Could not load data"
-          );
+          throw new Error("Error: Thread could not be loaded");
         }
         setError("");
 
@@ -90,7 +85,7 @@ const Threads = ({ classes }) => {
       })
       .catch((err) => {
         setLoading(false);
-        return setError("Error: could not connect to server");
+        return setError("Error: Could not connect to server");
       });
   }, []);
 

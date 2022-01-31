@@ -76,21 +76,19 @@ const EditThread = ({ match, history, classes }) => {
     /**
      * Load the thread
      */
-    show(id).then((data) => {
-      if (!data || data.error || data.exception || data.message) {
-        setError(
-          data && data.error
-            ? Object.values(data.error)[0][0]
-            : "Could not load data"
-        );
+    show(id)
+      .then((data) => {
+        if (!data || data.error || data.exception || data.message) {
+          throw new Error("Error: Could not load data");
+        }
 
-        return;
-      }
+        setTitle(data.data.title);
 
-      setTitle(data.data.title);
-
-      setId(data.data._id);
-    });
+        setId(data.data._id);
+      })
+      .catch((err) => {
+        return setError("Error: Could not load data");
+      });
   }, [match]);
 
   useEffect(() => {
@@ -121,16 +119,19 @@ const EditThread = ({ match, history, classes }) => {
     if (handleValidation()) {
       setLoading(true);
       const jwt = auth.isAuthenticated();
-      update(id, { title }, jwt.token).then((data) => {
-        if (!data || data.error || data.exception || data.message) {
-          setLoading(false);
-          return setError(
-            data && data.error ? data.error : "Could not create thread"
-          );
-        }
+      update(id, { title }, jwt.token)
+        .then((data) => {
+          if (!data || data.error || data.exception || data.message) {
+            throw new Error("Error: Could not update thread");
+          }
 
-        history.push(`/thread/${data.data._id}`);
-      });
+          history.push(`/thread/${data.data._id}`);
+        })
+        .catch((err) => {
+          setLoading(false);
+
+          return setError("Error: Could not update thread");
+        });
     }
   };
 

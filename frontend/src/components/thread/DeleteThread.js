@@ -71,16 +71,19 @@ const DeleteThread = ({ history, open, thread, handleClose }) => {
     setLoading(true);
     const jwt = auth.isAuthenticated();
 
-    remove(thread._id, jwt.token).then((data) => {
-      if (data.error) {
+    remove(thread._id, jwt.token)
+      .then((data) => {
+        if (!data || data.error || data.exception || data.message) {
+          throw new Error("Error: Thread could not be loaded");
+        }
+
+        history.push("/");
+      })
+      .catch((err) => {
         setLoading(false);
         handleClose(false);
-
-        return setThreadError(data.error);
-      }
-
-      history.push("/");
-    });
+        return setThreadError("Error: Could not delete thread");
+      });
   };
 
   /**
