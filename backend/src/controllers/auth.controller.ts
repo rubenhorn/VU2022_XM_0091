@@ -91,13 +91,11 @@ export const signin = async (req: Request, res: Response) => {
 /**
  * Ensure a user is signed in before continuing
  */
-export const requireSignin = () => {
-  expressJwt({
-    secret: config.jwtSecret,
-    userProperty: "auth",
-    algorithms: ["HS256"],
-  });
-};
+export const requireSignin = expressJwt({
+  secret: config.jwtSecret,
+  userProperty: "auth",
+  algorithms: ["HS256"],
+});
 
 /**
  * Ensure a user has authorization, and is the logged in user before continuing
