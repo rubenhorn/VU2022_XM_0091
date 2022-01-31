@@ -6,10 +6,9 @@ Prerequisites:
 Setup:
  1. Build container images
  2. Push container images
- 3. Generate secrets
- 4. Generate tls certificate
- 5. Apply modified traefik daemonset
- 6. Install helm chart
+ 3. Generate tls certificate
+ 4. Apply modified traefik daemonset
+ 5. Install helm chart
 
 Folders:
  - /backend contains the backend of the app

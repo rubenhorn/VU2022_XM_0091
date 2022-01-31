@@ -20,6 +20,7 @@ import { Grid } from "@material-ui/core";
 import Header from "../components/layout/Header";
 
 import Threads from "../pages/thread/Threads";
+import EmptyState from "../components/global/EmptyState";
 
 import routes from "./routes";
 
@@ -39,6 +40,14 @@ const MainRouter = (props) => {
             {routes.map(({ link, component }, i) => (
               <Route path={link} component={component} key={i} />
             ))}
+
+            <Route
+              component={() => (
+                <EmptyState
+                  message={"The page you are looking for does not exist"}
+                />
+              )}
+            />
           </Switch>
         </Grid>
       </Grid>

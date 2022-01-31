@@ -99,7 +99,6 @@ const Register = ({ classes, history }) => {
       setLoading(true);
       register({ name, email, password })
         .then((data) => {
-          console.log(data);
           if (data.error) {
             setLoading(false);
             return setError(data.error);
