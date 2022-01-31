@@ -95,8 +95,7 @@ const Login = ({ classes, history }) => {
       login({ email, password })
         .then((data) => {
           if (data.error) {
-            setLoading(false);
-            return setError(data.error);
+            throw new Error();
           }
           setError("");
           auth.setUserDetails(data.data, (success) => {

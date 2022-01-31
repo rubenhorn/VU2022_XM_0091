@@ -36,7 +36,7 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-database-secret
               key: mongodb-passwords
-        image: {{ .Values.registry }}/vu_sc_backend
+        image: {{ .Values.registry }}/vu_sc_backend:{{ .Values.backendImageTag }}
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.backendPort }}
