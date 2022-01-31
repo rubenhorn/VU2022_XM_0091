@@ -33,18 +33,21 @@ let mongoUri = "";
  */
 if (config.mongodbRootUser.trim().length > 0) {
   const splittedUri = config.mongodbUri.split("mongodb://")[1];
-  mongoUri = `mongodb://${config.mongodbRootUser}:${config.mongodbRootPassword}@${splittedUri}`;
+  const encodedPassword = encodeURIComponent(config.mongodbRootPassword);
+
+  mongoUri = `mongodb://${config.mongodbRootUser}:${encodedPassword}@${splittedUri}`;
 }
 
 /**
  * Creates a global mongoose promise
  */
 mongoose.Promise = global.Promise;
+console.log(mongoUri);
 
 /**
  * Connect using the config mongodbUri and options
  */
-mongoose.connect(config.mongodbUri, options, () => {
+mongoose.connect(mongoUri, options, () => {
   console.log("Connected to DB");
 
   /**
