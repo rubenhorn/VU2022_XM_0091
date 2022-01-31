@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-frontend
-        image: {{ .Values.registry }}/vu_sc_frontend
+        image: {{ .Values.registry }}/vu_sc_frontend:{{ .Values.frontendImageTag }}
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.frontendPort }}
