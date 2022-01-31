@@ -31,11 +31,13 @@ let mongodbUri = config.mongodbUri;
 /**
  * Optionally include credentials to authenticate agains mongodb
  */
-if (config.mongodbRootUser.trim().length > 0) {
+if (config.mongodbUser.trim().length > 0) {
   const splittedUri = config.mongodbUri.split("mongodb://")[1];
-  const encodedPassword = encodeURIComponent(config.mongodbRootPassword);
+  const encodedPassword = encodeURIComponent(config.mongodbPassword);
+  const encodedUsername = encodeURIComponent(config.mongodbUser);
 
-  mongodbUri = `mongodb://application:${encodedPassword}@${splittedUri}`;
+  mongodbUri = `mongodb://${encodedUsername}:${encodedPassword}@${splittedUri}`;
+  console.log(mongodbUri);
 }
 
 /**

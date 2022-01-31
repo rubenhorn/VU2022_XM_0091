@@ -23,4 +23,5 @@ function gen_secret {
 }
  
 gen_secret 300 > jwtSecret.secret
+gen_secret 32 > mongodbPass.secret
 gen_secret 32 > mongodbRootPass.secret
