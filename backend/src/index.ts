@@ -37,7 +37,6 @@ if (config.mongodbUser.trim().length > 0) {
   const encodedUsername = encodeURIComponent(config.mongodbUser);
 
   mongodbUri = `mongodb://${encodedUsername}:${encodedPassword}@${splittedUri}`;
-  console.log(mongodbUri);
 }
 
 /**
