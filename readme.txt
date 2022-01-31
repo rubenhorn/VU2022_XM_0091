@@ -8,7 +8,8 @@ Setup:
  2. Push container images
  3. Generate tls certificate
  4. Apply modified traefik daemonset
- 5. Install helm chart
+ 5. Create namespace
+ 6. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -24,6 +25,7 @@ Scripts:
  - Use /scripts/gen-secrets.sh to create kubernetes secrets used by helm
  - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
  - Use /scripts/app.sh to manage the deployment of the app through helm
+ - Use /scripts/create-namespace.sh to create the namespace `development'
  - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
  - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
