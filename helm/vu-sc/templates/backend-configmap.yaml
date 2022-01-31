@@ -1,3 +1,5 @@
+{{ $dbHostPrefix := .Release.Name -}}
+{{ $dbPort := .Values.databasePort -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,4 +8,6 @@ metadata:
   labels:
     app: {{ .Release.Name }}-backend
 data:
-  MONGO_URI: "mongodb://{{ .Release.Name }}-database:{{ .Values.databasePort }}/vu-sc-db"
+  {{ with index .Values.mongodb.auth.databases 0 }}
+  MONGODB_URI: "mongodb://{{ $dbHostPrefix }}-database:{{ $dbPort }}/{{ . }}"
+  {{ end }}

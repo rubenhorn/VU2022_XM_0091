@@ -19,12 +19,26 @@ import mongoose from "mongoose";
 /**
  * Mongoose Connection configurations
  */
-const options = {
+const options: any = {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 };
+
+let mongodbUri = config.mongodbUri;
+
+/**
+ * Optionally include credentials to authenticate agains mongodb
+ */
+if (config.mongodbUser.trim().length > 0) {
+  const splittedUri = config.mongodbUri.split("mongodb://")[1];
+  const encodedPassword = encodeURIComponent(config.mongodbPassword);
+  const encodedUsername = encodeURIComponent(config.mongodbUser);
+
+  mongodbUri = `mongodb://${encodedUsername}:${encodedPassword}@${splittedUri}`;
+  console.log(mongodbUri);
+}
 
 /**
  * Creates a global mongoose promise
@@ -32,9 +46,9 @@ const options = {
 mongoose.Promise = global.Promise;
 
 /**
- * Connect using the config mongoURI and options
+ * Connect using the config mongodbUri and options
  */
-mongoose.connect(config.mongoUri, options, () => {
+mongoose.connect(mongodbUri, options, () => {
   console.log("Connected to DB");
 
   /**
@@ -52,6 +66,7 @@ mongoose.connect(config.mongoUri, options, () => {
 /**
  * Listen for an error
  */
-mongoose.connection.on("error", () => {
-  throw new Error(`unable to connect to database: ${config.mongoUri}`);
+mongoose.connection.on("error", (error) => {
+  console.error(`Error: ${error.stack}`);
+  throw new Error(`unable to connect to database: ${config.mongodbUri}`);
 });

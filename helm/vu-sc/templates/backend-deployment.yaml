@@ -16,16 +16,26 @@ spec:
       containers:
       - name: {{ .Release.Name }}-backend
         env:
-        - name: MONGO_URI
+        - name: MONGODB_URI
           valueFrom:
             configMapKeyRef:
               name: {{ .Release.Name }}-backend-config
-              key: MONGO_URI
+              key: MONGODB_URI
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-backend-secret
               key: JWT_SECRET
+        - name: MONGODB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-database-secret
+              key: mongodb-user
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-database-secret
+              key: mongodb-passwords
         image: {{ .Values.registry }}/vu_sc_backend:{{ .Values.backendImageTag }}
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:

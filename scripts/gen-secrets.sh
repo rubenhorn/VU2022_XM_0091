@@ -19,7 +19,9 @@ mkdir secrets
 cd secrets
 
 function gen_secret {
-    openssl rand -base64 $1 | tr -d '\n' | head -c $1
+    < /dev/urandom  tr -dc A-Za-z0-9 | head -c $1
 }
  
 gen_secret 300 > jwtSecret.secret
+gen_secret 32 > mongodbPass.secret
+gen_secret 32 > mongodbRootPass.secret

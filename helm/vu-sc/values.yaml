@@ -10,9 +10,14 @@ databasePort: 27017
 
 # Subchart values
 mongodb:
+  nameOverride: database
   global:
     # NOTE keep in sync with `namespace`
     namespaceOverride: development
   auth:
-    enabled: false
-  nameOverride: database
+    # NOTE prefix must match release name
+    existingSecret: vu-sc-database-secret
+    databases:
+      - vu-sc
+    usernames:
+      - vu-sc
