@@ -15,3 +15,7 @@ mongodb:
   auth:
     # NOTE prefix must match release name
     existingSecret: vu-sc-database-secret
+    databases:
+      - vu-sc-db
+    usernames:
+      - application

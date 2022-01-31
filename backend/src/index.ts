@@ -35,14 +35,13 @@ if (config.mongodbRootUser.trim().length > 0) {
   const splittedUri = config.mongodbUri.split("mongodb://")[1];
   const encodedPassword = encodeURIComponent(config.mongodbRootPassword);
 
-  mongodbUri = `mongodb://${config.mongodbRootUser}:${encodedPassword}@${splittedUri}`;
+  mongodbUri = `mongodb://application:${encodedPassword}@${splittedUri}`;
 }
 
 /**
  * Creates a global mongoose promise
  */
 mongoose.Promise = global.Promise;
-console.log(mongodbUri);
 
 /**
  * Connect using the config mongodbUri and options
