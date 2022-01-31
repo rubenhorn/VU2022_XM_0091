@@ -1,0 +1,87 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      deprecated.daemonset.template.generation: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"DaemonSet","metadata":{"annotations":{},"labels":{"k8s-app":"traefik-ingress-lb"},"name":"traefik-ingress-controller","namespace":"traefik"},"spec":{"selector":{"matchLabels":{"k8s-app":"traefik-ingress-lb","name":"traefik-ingress-lb"}},"template":{"metadata":{"labels":{"k8s-app":"traefik-ingress-lb","name":"traefik-ingress-lb"}},"spec":{"containers":[{"args":["--providers.kubernetesingress=true","--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1","--log=true","--log.level=INFO","--accesslog=true","--accesslog.filepath=/dev/stdout","--accesslog.format=json","--entrypoints.web.address=:8080","--entrypoints.websecure.address=:8443"],"image":"traefik:2.3","name":"traefik-ingress-lb","ports":[{"containerPort":8080,"hostPort":8080,"name":"http"}],"securityContext":{"capabilities":{"add":["NET_BIND_SERVICE"],"drop":["ALL"]}}}],"hostNetwork":true,"serviceAccountName":"traefik-ingress-controller","terminationGracePeriodSeconds":60,"tolerations":[{"effect":"NoSchedule","operator":"Exists"}]}}}}
+    creationTimestamp: "2022-01-26T14:12:01Z"
+    generation: 1
+    labels:
+      k8s-app: traefik-ingress-lb
+    name: traefik-ingress-controller
+    namespace: traefik
+    resourceVersion: "45702"
+    selfLink: /apis/apps/v1/namespaces/traefik/daemonsets/traefik-ingress-controller
+    uid: 6e830eee-0bef-4bcb-916e-6dad4dfc93b4
+  spec:
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: traefik-ingress-lb
+        name: traefik-ingress-lb
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          k8s-app: traefik-ingress-lb
+          name: traefik-ingress-lb
+      spec:
+        containers:
+        - args:
+          - --providers.kubernetesingress=true
+          - --providers.kubernetesingress.ingressendpoint.ip=127.0.0.1
+          - --log=true
+          - --log.level=INFO
+          - --accesslog=true
+          - --accesslog.filepath=/dev/stdout
+          - --accesslog.format=json
+          - --entrypoints.web.address=:8080
+          - --entrypoints.websecure.address=:8443
+          image: traefik:2.3
+          imagePullPolicy: IfNotPresent
+          name: traefik-ingress-lb
+          ports:
+          - containerPort: 8080
+            hostPort: 8080
+            name: http
+            protocol: TCP
+          resources: {}
+          securityContext:
+            capabilities:
+              add:
+              - NET_BIND_SERVICE
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        hostNetwork: true
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: traefik-ingress-controller
+        serviceAccountName: traefik-ingress-controller
+        terminationGracePeriodSeconds: 60
+        tolerations:
+        - effect: NoSchedule
+          operator: Exists
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 1
+    desiredNumberScheduled: 1
+    numberAvailable: 1
+    numberMisscheduled: 0
+    numberReady: 1
+    observedGeneration: 1
+    updatedNumberScheduled: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

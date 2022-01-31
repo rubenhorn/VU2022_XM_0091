@@ -26,7 +26,7 @@ const options: any = {
   useUnifiedTopology: true,
 };
 
-let mongoUri = "";
+let mongodbUri = config.mongodbUri;
 
 /**
  * Optionally include credentials to authenticate agains mongodb
@@ -35,19 +35,19 @@ if (config.mongodbRootUser.trim().length > 0) {
   const splittedUri = config.mongodbUri.split("mongodb://")[1];
   const encodedPassword = encodeURIComponent(config.mongodbRootPassword);
 
-  mongoUri = `mongodb://${config.mongodbRootUser}:${encodedPassword}@${splittedUri}`;
+  mongodbUri = `mongodb://${config.mongodbRootUser}:${encodedPassword}@${splittedUri}`;
 }
 
 /**
  * Creates a global mongoose promise
  */
 mongoose.Promise = global.Promise;
-console.log(mongoUri);
+console.log(mongodbUri);
 
 /**
  * Connect using the config mongodbUri and options
  */
-mongoose.connect(mongoUri, options, () => {
+mongoose.connect(mongodbUri, options, () => {
   console.log("Connected to DB");
 
   /**

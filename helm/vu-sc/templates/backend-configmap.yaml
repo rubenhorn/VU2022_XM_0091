@@ -2,7 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-backend-config
+  namespace: {{ .Values.namespace }}
   labels:
     app: {{ .Release.Name }}-backend
 data:
-  MONGODB_URI: "mongodb://{{ .Release.Name }}-mongodb:27017/vu-sc-db"
+  MONGODB_URI: "mongodb://{{ .Release.Name }}-database:{{ .Values.databasePort }}/vu-sc-db"
