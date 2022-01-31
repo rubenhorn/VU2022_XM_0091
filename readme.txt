@@ -9,7 +9,8 @@ Setup:
  3. Generate tls certificate
  4. Apply modified traefik daemonset
  5. Create namespace
- 6. Install helm chart
+ 6. Update helm chart dependencies
+ 7. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
