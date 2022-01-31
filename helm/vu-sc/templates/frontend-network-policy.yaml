@@ -13,4 +13,5 @@ spec:
   ingress:
   - ports:
     - port: {{ .Values.frontendPort }}
+      protocol: TCP
   egress: []

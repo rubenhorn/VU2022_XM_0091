@@ -18,4 +18,5 @@ spec:
           app: {{ .Release.Name }}-backend
     ports:
     - port: {{ .Values.databasePort }}
+      protocol: TCP
   egress: []

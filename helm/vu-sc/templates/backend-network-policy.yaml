@@ -14,11 +14,18 @@ spec:
   ingress:
   - ports:
     - port: {{ .Values.backendPort }}
+      protocol: TCP
   egress:
   - to:
     - podSelector:
         matchLabels:
-          app: {{ .Release.Name }}-database
+          app.kubernetes.io/component: mongodb
+          app.kubernetes.io/instance: {{ .Release.Name }}
+    ports:
+    - port: {{ .Values.databasePort }}
+      protocol: TCP
+  # Allow DNS to resolve DB IP
+  - to:
     - podSelector:
         matchLabels:
           k8s-app: kube-dns
@@ -26,9 +33,6 @@ spec:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
     ports:
-    - port: {{ .Values.databasePort }}
-  # Allow DNS to resolve DB IP
-  - ports:
     - port: {{ $dnsPort }}
       protocol: UDP
     - port: {{ $dnsPort }}
