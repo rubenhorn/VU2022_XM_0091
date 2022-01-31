@@ -1,5 +1,10 @@
 #! /usr/bin/bash
 
+if (( $EUID != 0 )); then
+    echo "Please run as root"
+    exit
+fi
+
 KUBECTL="microk8s kubectl"
 NAMESPACE=development
 

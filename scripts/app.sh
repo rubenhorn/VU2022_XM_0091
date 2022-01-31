@@ -1,5 +1,10 @@
 #! /usr/bin/bash
 
+if (( $EUID != 0 )); then
+    echo "Please run as root"
+    exit
+fi
+
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     echo "Expected exactly one argument (\`up' or \`down')"
     exit 1
