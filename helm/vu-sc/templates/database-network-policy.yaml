@@ -16,6 +16,6 @@ spec:
     - podSelector:
         matchLabels:
           app: {{ .Release.Name }}-backend
-  - ports:
+    ports:
     - port: {{ .Values.databasePort }}
   egress: []
