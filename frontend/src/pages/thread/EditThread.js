@@ -79,7 +79,13 @@ const EditThread = ({ match, history, classes }) => {
     show(id)
       .then((data) => {
         if (!data || data.error || data.exception || data.message) {
+<<<<<<< Updated upstream
           throw new Error("Error: Could not load data");
+=======
+          setError(data && data.error ? data.error : "Could not load data");
+
+          return;
+>>>>>>> Stashed changes
         }
 
         setTitle(data.data.title);
@@ -87,7 +93,11 @@ const EditThread = ({ match, history, classes }) => {
         setId(data.data._id);
       })
       .catch((err) => {
+<<<<<<< Updated upstream
         return setError("Error: Could not load data");
+=======
+        return setError("Could not get thread");
+>>>>>>> Stashed changes
       });
   }, [match]);
 
