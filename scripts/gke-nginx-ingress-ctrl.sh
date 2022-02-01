@@ -9,6 +9,7 @@ APP_NAME="nginx-ingress"
 
 if [ "$1" == down ]; then
     helm uninstall $APP_NAME
+    exit
 fi
 
 if [ "$(helm list | grep $APP_NAME)" != "" ]; then
