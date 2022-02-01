@@ -20,9 +20,8 @@ cd $SCRIPTPATH
 NUM_PODS=$($KUBECTL get pods -n $NAMESPACE | grep frontend | wc -l)
 
 if [ "$1" == "build-and-push" ]; then
-    docker build -t "$IMAGE:canary" "../frontend" && \
-        docker tag "$IMAGE:canary" "$REGISTRY/$IMAGE:canary" && \
-            docker push "$REGISTRY/$IMAGE:canary"
+    docker build -t "$REGISTRY/$IMAGE:canary" "../frontend" && \
+        docker push "$REGISTRY/$IMAGE:canary"
 elif [ "$1" == "deploy" ]; then
     DEPLOYMENT=$(cat <<EOF
 {
