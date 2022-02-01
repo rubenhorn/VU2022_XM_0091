@@ -8,7 +8,7 @@ DEPLOYMENT=$(cat <<EOF
   "apiVersion": "networking.gke.io/v1beta1",
   "kind": "FrontendConfig",
   "metadata": {
-    "name": "redirect-to-https"
+    "name": "redirect-to-https",
     "namespace": "$NAMESPACE"
   },
   "spec": {
