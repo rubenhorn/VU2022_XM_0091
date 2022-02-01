@@ -10,7 +10,5 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-# docker build -t "vu_sc_$1" "../$1" && \
-#     docker tag $1 "$REGISTRY/$1" && \
-#     docker push "$REGISTRY/$1"
-docker build -t "$REGISTRY/$1" "../$1"
+docker build -t "$REGISTRY/$1" "../$1" && \
+    docker push "$REGISTRY/$1
