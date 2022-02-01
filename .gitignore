@@ -3,6 +3,7 @@ node_modules/
 dist/
 **/.env
 build/
+service-acc-key.json
 
 # Helm
 *.tgz
