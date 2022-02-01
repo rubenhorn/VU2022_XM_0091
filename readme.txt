@@ -10,7 +10,8 @@ Setup:
  4. Apply modified traefik daemonset
  5. Create namespace
  6. Update helm chart dependencies
- 7. Install helm chart
+ 7. (On GKE, add FrontendConfig to redirect to HTTPS)
+ 8. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -30,6 +31,7 @@ Scripts:
  - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
  - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
+ - Use /srcipts/gke-redirect-to-https.sh to force HTTPS on GKE
 
 Patching:
  - Change the theme by running patch -p0 < theme.patch
