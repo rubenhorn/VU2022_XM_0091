@@ -2,11 +2,6 @@
 APP_NAME="vu-sc"
 REGISTRY="localhost:32000"
 
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit
-fi
-
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH

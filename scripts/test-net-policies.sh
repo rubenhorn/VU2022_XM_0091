@@ -1,11 +1,6 @@
 #! /usr/bin/bash
 NAMESPACE=development
 
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit
-fi
-
 KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 # Run from corresponding pods

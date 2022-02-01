@@ -1,11 +1,6 @@
 #! /usr/bin/bash
 REGISTRY="localhost:32000"
 
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit 1
-fi
-
 if [ "$#" != 1 ] || { [ "$1" != frontend ] && [ "$1" != backend ] ;}; then
     echo "Expected exactly one argument (\`frontend' or \`backend')"
     exit 1

@@ -5,11 +5,6 @@ NAMESPACE="development"
 NUM_CANARY_PODS=1
 REGISTRY="localhost:32000"
 
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit 1
-fi
-
 if [ "$#" != 1 ] || { [ "$1" != "build-and-push" ] && [ "$1" != "deploy" ] && [ "$1" != "undeploy" ] && [ "$1" != "release" ] ;}; then
     echo "Expected exactly one argument (\`build-and-push',  \`deploy',  \`undeploy',  \`release')"
     exit 1
