@@ -2,6 +2,7 @@
 APP_NAME="vu-sc"
 REGISTRY="${REGISTRY:=localhost:32000}"
 INGRESS_CLASS="${INGRESS_CLASS:=traefik}"
+HOSTNAME="${HOSTNAME:=localhost}"
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     echo "Expected exactly one argument (\`up' or \`down')"
@@ -19,7 +20,7 @@ if [ "$1" == down ]; then
     exit
 fi
 
-OVERRIDES="--set registry=$REGISTRY --set ingressClass=$INGRESS_CLASS"
+OVERRIDES="--set registry=$REGISTRY --set ingressClass=$INGRESS_CLASS --set hostname=$HOSTNAME"
 
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
     $HELM upgrade $OVERRIDES $APP_NAME ../helm/$APP_NAME

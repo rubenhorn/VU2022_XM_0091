@@ -8,6 +8,7 @@ frontendImageTag: latest
 frontendPort: 3001
 databasePort: 27017
 ingressClass: traefik
+hostname: localhost
 
 # Subchart values
 mongodb:

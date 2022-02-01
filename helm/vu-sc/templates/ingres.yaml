@@ -13,8 +13,11 @@ metadata:
 spec:
   tls:
   - secretName: {{ .Release.Name }}-tls-secret
+    hosts:
+    - {{ .Values.hostname | quote }}
   rules:
-  - http:
+  - host: {{ .Values.hostname | quote }}
+    http:
       paths:
       - path: /
         pathType: Prefix

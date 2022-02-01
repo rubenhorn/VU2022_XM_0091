@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-DOMAIN="localhost"
+HOSTNAME="${HOSTNAME:=localhost}"
 
 ROOT_CA_KEY="rootCA.key"
 ROOT_CA_CRT="rootCA.crt"
@@ -46,7 +46,7 @@ openssl genrsa -out $(pwd)/$APP_NAME.key 2048 || exit 1
 
 # Signing certificate request
 openssl req -new -sha256 -key $(pwd)/$APP_NAME.key -out $(pwd)/$APP_NAME.csr \
-    -subj "/O=vu-sc-g2/CN=$DOMAIN" || exit 1
+    -subj "/O=vu-sc-g2/CN=$HOSTNAME" || exit 1
 
 # Create certificate
 openssl x509 -req -in $(pwd)/$APP_NAME.csr -CA $ROOT_CA_CRT -CAkey $ROOT_CA_KEY -CAcreateserial -out $(pwd)/$APP_NAME.crt -days 500 -sha256 \

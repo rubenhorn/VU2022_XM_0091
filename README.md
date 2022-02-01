@@ -4,7 +4,7 @@ Project for the course Software Containerization (CS Master) at VU
  - microk8s with dns, helm3, registry, storage, traefik
 
 ## Setup:
- 1. (On GKE, run `export INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId>`)
+ 1. (On GKE, run `export HOSTNAME="*.nip.io" INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId>`)
  2. Build container images
  3. Push container images
  4. Generate tls certificate
@@ -13,6 +13,8 @@ Project for the course Software Containerization (CS Master) at VU
  7. Update helm chart dependencies
  8. (On GKE, install the nginx ingress controller)
  9. Install helm chart
+ 
+ (!) The app is deployed locally on http://localhost:8080 or on <IP>.nip.io on GKE 
 
 ## Folders:
  - /backend contains the backend of the app
