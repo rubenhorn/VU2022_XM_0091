@@ -11,4 +11,4 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
 docker build -t "$REGISTRY/$1" "../$1" && \
-    docker push "$REGISTRY/$1
+    docker push "$REGISTRY/$1"
