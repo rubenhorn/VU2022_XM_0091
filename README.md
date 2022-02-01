@@ -8,7 +8,7 @@ Project for the course Software Containerization (CS Master) at VU
  2. Build container images
  3. Push container images
  4. Generate tls certificate
- 5. Apply modified traefik daemonset
+ 5. (On microk8s, apply modified traefik daemonset)
  6. Create namespace
  7. Update helm chart dependencies
  8. (On GKE, add FrontendConfig to redirect to HTTPS)
