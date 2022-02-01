@@ -22,5 +22,9 @@ helm repo update
 
 helm install  $APP_NAME ingress-nginx/ingress-nginx 1>/dev/null
 echo "Successfully installed nginx ingress controller."
-IP=$(kubectl get services | grep -e "ingress-nginx-controller.*LoadBalancer" | awk '{ print $4 }')
+IP="<pending>"
+while [ "$IP" == "<pending>" ]; do
+    sleep 1
+    IP=$(kubectl get services | grep -e "ingress-nginx-controller.*LoadBalancer" | awk '{ print $4 }')
+done
 echo -e "\nPlease run: export HOSTNAME=$(echo $IP | tr . -).nip.io\n"
