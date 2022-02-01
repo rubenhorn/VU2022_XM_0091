@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 APP_NAME="vu-sc"
 REGISTRY="${REGISTRY:=localhost:32000}"
-INGRESS_CLASS="${INGRESS_CLASS:=traefik}"
+INGRESS_CLASS="${INGRESS_CLASS:=public}"
 HOSTNAME="${HOSTNAME:=localhost}"
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then

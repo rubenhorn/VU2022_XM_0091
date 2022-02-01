@@ -7,7 +7,7 @@ backendPort: 3000
 frontendImageTag: latest
 frontendPort: 3001
 databasePort: 27017
-ingressClass: traefik
+ingressClass: public
 hostname: localhost
 
 # Subchart values

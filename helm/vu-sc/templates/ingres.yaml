@@ -4,9 +4,6 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Values.namespace }}
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    # GKE
     kubernetes.io/ingress.class: {{ .Values.ingressClass }}
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
