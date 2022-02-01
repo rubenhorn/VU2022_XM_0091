@@ -1,6 +1,7 @@
 #! /usr/bin/bash
 APP_NAME="vu-sc"
 REGISTRY="${REGISTRY:=localhost:32000}"
+INGRESS_CLASS="${INGRESS_CLASS:=traefik}"
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     echo "Expected exactly one argument (\`up' or \`down')"
@@ -18,9 +19,13 @@ if [ "$1" == down ]; then
     exit
 fi
 
+OVERRIDES="--set registry=$REGISTRY --set ingressClass=$INGRESS_CLASS"
+echo $OVERRIDES
+exit
+
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
-    $HELM upgrade --set registry=$REGISTRY $APP_NAME ../helm/$APP_NAME
+    $HELM upgrade $OVERRIDES $APP_NAME ../helm/$APP_NAME
 else
     $SCRIPTPATH/gen-secrets.sh -y
-    $HELM install --set registry=$REGISTRY $APP_NAME ../helm/$APP_NAME
+    $HELM install $OVERRIDES $APP_NAME ../helm/$APP_NAME
 fi

@@ -7,6 +7,7 @@ backendPort: 3000
 frontendImageTag: latest
 frontendPort: 3001
 databasePort: 27017
+ingressClass: traefik
 
 # Subchart values
 mongodb:

@@ -4,14 +4,14 @@ Project for the course Software Containerization (CS Master) at VU
  - microk8s with dns, helm3, registry, storage, traefik
 
 ## Setup:
- 1. (On GKE, run `export REGISTRY=gcr.io/<gcp-projectId>`)
+ 1. (On GKE, run `export INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId>`)
  2. Build container images
  3. Push container images
  4. Generate tls certificate
  5. (On microk8s, apply modified traefik daemonset)
  6. Create namespace
  7. Update helm chart dependencies
- 8. (On GKE, add FrontendConfig to redirect to HTTPS)
+ 8. (On GKE, install the nginx ingress controller)
  9. Install helm chart
 
 ## Folders:
@@ -32,7 +32,7 @@ Project for the course Software Containerization (CS Master) at VU
  - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
  - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
- - Use /srcipts/gke-redirect-to-https.sh to force HTTPS on GKE
+ - Use /srcipts/install-nginx-ingress-ctrl to install nginx ingress controller
 
  (!) You might need to update some variables depending on your environement.
      These all follow the hashbang (2nd line of the script) until the first empty line.
