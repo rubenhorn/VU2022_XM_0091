@@ -13,7 +13,7 @@ Project for the course Software Containerization (CS Master) at VU
  7. (On GKE, install the nginx ingress controller)
  8. Install helm chart
  
- (!) The app is deployed locally on _http://<!-- prevent auto generated link -->localhost:80_ or on _http://\<IP\>.nip.io_ on GKE 
+ (!) The app is deployed locally on _http://<!-- prevent auto generated link -->127-0-0-1.nip.io_ or on _http://\<IP\>.nip.io_ on GKE 
 
 ## Folders:
  - /backend contains the backend of the app
@@ -33,9 +33,6 @@ Project for the course Software Containerization (CS Master) at VU
  - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
  - Use /srcipts/install-nginx-ingress-ctrl to install nginx ingress controller
-
- (!) You might need to update some variables depending on your environement.
-     These all follow the hashbang (2nd line of the script) until the first empty line.
 
 ## Patching:
  - Change the theme by running `patch -p0 < theme.patch`

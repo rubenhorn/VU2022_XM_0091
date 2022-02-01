@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-HOSTNAME="${HOSTNAME:=localhost}"
+HOSTNAME="${HOSTNAME:="127-0-0-1.nip.io"}"
 
 ROOT_CA_KEY="rootCA.key"
 ROOT_CA_CRT="rootCA.crt"
