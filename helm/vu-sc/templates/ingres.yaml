@@ -11,9 +11,7 @@ metadata:
     networking.gke.io/v1beta1.FrontendConfig: redirect-to-https
 spec:
   tls:
-  - hosts:
-    - {{ .Values.host }}
-    secretName: {{ .Release.Name }}-tls-secret
+  - secretName: {{ .Release.Name }}-tls-secret
   rules:
   - http:
       paths:
