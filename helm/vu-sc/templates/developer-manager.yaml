@@ -5,5 +5,5 @@ metadata:
   name: developer-manager
 rules:
 - apiGroups: [""]
-  resources: ["deployments", "pods"]
+  resources: ["deployments", "pods", "services", "endpoints", "jobs", "nodes", "secrets", "configmaps"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
