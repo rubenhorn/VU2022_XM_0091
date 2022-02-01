@@ -10,8 +10,9 @@ Setup:
  4. Apply modified traefik daemonset
  5. Create namespace
  6. Add users to the static token file.
- 7. Update helm chart dependencies
- 8. Install helm chart
+ 7. Enable RBAC `microk8s enable rbac`
+ 8. Update helm chart dependencies
+ 9. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
