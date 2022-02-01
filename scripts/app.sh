@@ -11,7 +11,7 @@ if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     exit 1
 fi
 
-HELM=$(which helm || echo microk8s helm3)" # Fallback for microk8s
+HELM="$(which helm || echo microk8s helm3)" # Fallback for microk8s
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
