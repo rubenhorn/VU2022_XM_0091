@@ -20,3 +20,6 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 helm install  $APP_NAME ingress-nginx/ingress-nginx 1>/dev/null
+echo "Successfully installed nginx ingress controller."
+IP=$(kubectl get services | grep -e "ingress-nginx-controller.*LoadBalancer" | awk '{ print $4 }')
+echo -e "\nPlease run: export HOSTNAME=$(echo $IP | tr . -).nip.io\n"

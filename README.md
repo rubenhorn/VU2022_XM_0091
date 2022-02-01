@@ -5,7 +5,7 @@ Project for the course Software Containerization (CS Master) at VU
 
 ## Setup:
  1. (On GKE, install the nginx ingress controller)
- 2. (On GKE, run `export HOSTNAME="*.nip.io" INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId>`)
+ 2. (On GKE, run `export INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId> HOSTNAME="<IP>.nip.io"`)
  3. Build container images
  4. Push container images
  5. Generate tls certificate
