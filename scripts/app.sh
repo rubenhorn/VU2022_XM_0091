@@ -1,5 +1,6 @@
 #! /usr/bin/bash
 APP_NAME="vu-sc"
+REGISTRY="${REGISTRY:=localhost:32000}"
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     echo "Expected exactly one argument (\`up' or \`down')"
@@ -18,8 +19,8 @@ if [ "$1" == down ]; then
 fi
 
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
-    $HELM upgrade $APP_NAME ../helm/$APP_NAME
+    $HELM upgrade --set registry=$REGISTRY $APP_NAME ../helm/$APP_NAME
 else
     $SCRIPTPATH/gen-secrets.sh -y
-    $HELM install $APP_NAME ../helm/$APP_NAME
+    $HELM install --set registry=$REGISTRY $APP_NAME ../helm/$APP_NAME
 fi

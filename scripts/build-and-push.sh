@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-REGISTRY="localhost:32000"
+REGISTRY="${REGISTRY:=localhost:32000}"
 
 if [ "$#" != 1 ] || { [ "$1" != frontend ] && [ "$1" != backend ] ;}; then
     echo "Expected exactly one argument (\`frontend' or \`backend')"

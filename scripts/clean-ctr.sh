@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 APP_NAME="vu-sc"
-REGISTRY="localhost:32000"
+REGISTRY="${REGISTRY:=localhost:32000}"
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`

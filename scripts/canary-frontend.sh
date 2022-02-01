@@ -3,7 +3,7 @@ IMAGE="vu_sc_frontend"
 PREFIX="vu-sc"
 NAMESPACE="development"
 NUM_CANARY_PODS=1
-REGISTRY="localhost:32000"
+REGISTRY="${REGISTRY:=localhost:32000}"
 
 if [ "$#" != 1 ] || { [ "$1" != "build-and-push" ] && [ "$1" != "deploy" ] && [ "$1" != "undeploy" ] && [ "$1" != "release" ] ;}; then
     echo "Expected exactly one argument (\`build-and-push',  \`deploy',  \`undeploy',  \`release')"
