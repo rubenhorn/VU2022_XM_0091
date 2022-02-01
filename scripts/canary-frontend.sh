@@ -3,6 +3,7 @@ IMAGE="vu_sc_frontend"
 PREFIX="vu-sc"
 NAMESPACE="development"
 NUM_CANARY_PODS=1
+REGISTRY="localhost:32000"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -25,8 +26,8 @@ NUM_PODS=$($KUBECTL get pods -n $NAMESPACE | grep frontend | wc -l)
 
 if [ "$1" == "build-and-push" ]; then
     docker build -t "$IMAGE:canary" "../frontend" && \
-        docker tag "$IMAGE:canary" "localhost:32000/$IMAGE:canary" && \
-            docker push "localhost:32000/$IMAGE:canary"
+        docker tag "$IMAGE:canary" "$REGISTRY/$IMAGE:canary" && \
+            docker push "$REGISTRY/$IMAGE:canary"
 elif [ "$1" == "deploy" ]; then
     DEPLOYMENT=$(cat <<EOF
 {
@@ -53,7 +54,7 @@ elif [ "$1" == "deploy" ]; then
         "containers": [
           {
             "name": "$PREFIX-frontend",
-            "image": "localhost:32000/$IMAGE:canary",
+            "image": "$REGISTRY/$IMAGE:canary",
             "imagePullPolicy": "Always",
             "ports": [
               {
@@ -74,7 +75,7 @@ elif [ "$1" == "undeploy" ]; then
     $KUBECTL delete -n $NAMESPACE deployment $PREFIX-frontend-canary
     $KUBECTL scale -n $NAMESPACE deployment $PREFIX-frontend --replicas=$NUM_PODS
 elif [ "$1" == "release" ]; then
-    docker tag "$IMAGE:canary" "localhost:32000/$IMAGE:latest" && \
-        docker push "localhost:32000/$IMAGE:latest"
+    docker tag "$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
+        docker push "$REGISTRY/$IMAGE:latest"
     $SCRIPTPATH/app.sh up
 fi

@@ -1,4 +1,5 @@
 #! /usr/bin/bash
+REGISTRY="localhost:32000"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -14,5 +15,7 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-./build-image.sh $1 && \
-    ./tag-and-push-image.sh "vu_sc_$1"
+# docker build -t "vu_sc_$1" "../$1" && \
+#     docker tag $1 "$REGISTRY/$1" && \
+#     docker push "$REGISTRY/$1"
+docker build -t "$REGISTRY/$1"
