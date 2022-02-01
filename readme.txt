@@ -9,8 +9,9 @@ Setup:
  3. Generate tls certificate
  4. Apply modified traefik daemonset
  5. Create namespace
- 6. Update helm chart dependencies
- 7. Install helm chart
+ 6. Add users to the static token file.
+ 7. Update helm chart dependencies
+ 8. Install helm chart
 
 Folders:
  - /backend contains the backend of the app
@@ -30,6 +31,7 @@ Scripts:
  - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
  - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
+ - Use /scripts/add-users.sh to add three users to the static token file used for RBAC
 
 Patching:
  - Change the theme by running patch -p0 < theme.patch
