@@ -12,8 +12,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    # TODO get host from values.yaml
-    - localhost
+    - {{ .Values.host }}
     secretName: {{ .Release.Name }}-tls-secret
   rules:
   - http:
