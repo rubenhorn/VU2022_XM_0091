@@ -1,4 +1,5 @@
 #! /usr/bin/bash
+APP_NAME="vu-sc"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -10,12 +11,11 @@ if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     exit 1
 fi
 
+HELM=$(which helm || echo microk8s helm3)" # Fallback for microk8s
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-APP_NAME="vu-sc"
-HELM="microk8s helm3"
 
 if [ "$1" == down ]; then
     $HELM uninstall $APP_NAME

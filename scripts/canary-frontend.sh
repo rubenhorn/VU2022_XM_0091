@@ -1,4 +1,8 @@
 #! /usr/bin/bash
+IMAGE="vu_sc_frontend"
+PREFIX="vu-sc"
+NAMESPACE="development"
+NUM_CANARY_PODS=1
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -10,16 +14,12 @@ if [ "$#" != 1 ] || { [ "$1" != "build-and-push" ] && [ "$1" != "deploy" ] && [ 
     exit 1
 fi
 
-KUBECTL="microk8s kubectl"
+KUBECTL=$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-IMAGE="vu_sc_frontend"
-PREFIX="vu-sc"
-NAMESPACE="development"
-NUM_CANARY_PODS=1
 
 NUM_PODS=$($KUBECTL get pods -n $NAMESPACE | grep frontend | wc -l)
 

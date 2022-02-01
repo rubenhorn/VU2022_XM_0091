@@ -33,6 +33,9 @@ Scripts:
  - Use /scripts/canary-frontend.sh to manage the release of a new frontend
  - Use /srcipts/gke-redirect-to-https.sh to force HTTPS on GKE
 
+ (!) You might need to update some variables depending on your environement.
+     These all follow the hashbang (2nd line of the script) until the first empty line.
+
 Patching:
  - Change the theme by running patch -p0 < theme.patch
  - Undo the change by running the same command including the -R flag

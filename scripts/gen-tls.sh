@@ -1,8 +1,8 @@
 #! /usr/bin/bash
+DOMAIN="localhost"
 
 ROOT_CA_KEY="rootCA.key"
 ROOT_CA_CRT="rootCA.crt"
-DOMAIN="localhost" # TODO change this when deploying to a different host
 
 APP_NAME="vu-sc"
 SCRIPT=`realpath $0`

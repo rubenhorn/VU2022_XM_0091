@@ -1,13 +1,13 @@
 #! /usr/bin/bash
+NAMESPACE="development"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
     exit 1
 fi
 
-KUBECTL="microk8s kubectl"
+KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
-NAMESPACE="development"
 
 DEPLOYMENT=$(cat <<EOF
 {

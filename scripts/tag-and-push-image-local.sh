@@ -1,4 +1,5 @@
 #! /usr/bin/bash
+REGISTRY="localhost:32000"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -10,5 +11,5 @@ if (( $# != 1 )); then
     exit 1
 fi
 
-docker tag $1 "localhost:32000/$1" && \
-    docker push "localhost:32000/$1"
+docker tag $1 "$REGISTRY/$1" && \
+    docker push "$REGISTRY/$1"

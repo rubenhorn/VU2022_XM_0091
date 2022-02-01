@@ -1,5 +1,4 @@
 #! /usr/bin/bash
-KUBECTL="kubectl"
 NAMESPACE="development"
 
 if (( $EUID != 0 )); then
@@ -7,6 +6,7 @@ if (( $EUID != 0 )); then
     exit 1
 fi
 
+KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 DEPLOYMENT=$(cat <<EOF
 {

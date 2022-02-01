@@ -1,4 +1,6 @@
 #! /usr/bin/bash
+APP_NAME="vu-sc"
+REGISTRY="localhost:32000"
 
 if (( $EUID != 0 )); then
     echo "Please run as root"
@@ -9,10 +11,9 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
-APP_NAME="vu-sc"
-CTR="microk8s ctr"
+CTR="$(which ctr || echo microk8s ctr)" # Fallback for microk8s
 
-IMGS=$($CTR images ls name~='localhost:32000' | tail -n +2  | awk {'print $1'})
+IMGS="$($CTR images ls name~=\"$REGISTRY\" | tail -n +2  | awk {'print $1'})"
 for IMG in $IMGS; do
     $CTR images rm $IMG
 done
