@@ -20,8 +20,6 @@ if [ "$1" == down ]; then
 fi
 
 OVERRIDES="--set registry=$REGISTRY --set ingressClass=$INGRESS_CLASS"
-echo $OVERRIDES
-exit
 
 if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
     $HELM upgrade $OVERRIDES $APP_NAME ../helm/$APP_NAME
