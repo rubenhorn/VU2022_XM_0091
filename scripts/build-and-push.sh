@@ -15,4 +15,4 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
 ./build-image.sh $1 && \
-    ./tag-and-push-image-local.sh "vu_sc_$1"
+    ./tag-and-push-image.sh "vu_sc_$1"
