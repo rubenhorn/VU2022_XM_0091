@@ -77,36 +77,33 @@ const Thread = ({ history, match }) => {
    */
   const load = useCallback(() => {
     setLoading(true);
+
     const { id } = match.params;
     const jwt = auth.isAuthenticated();
     setHasAuth(jwt ? true : false);
-    show(id).then((data) => {
-      if (!data || data.error || data.exception || data.message) {
-        setLoading(false);
-
-        return setError(
-          data && data.error
-            ? Object.values(data.error)[0][0]
-            : "Could not load data"
-        );
-      }
-      setError("");
-      // if (data.messages.length > 0) {
-      //   setMessages(data.messages.reverse());
-      //   delete data.messages;
-      // }
-
-      setThread(data.data);
-      console.log(jwt);
-      jwt && jwt.user.id === data.data.posted_by._id && setDisplayActions(true);
-      setLoading(false);
-
-      list(id).then((data) => {
-        if (data.data) {
-          setMessages(data.data);
+    show(id)
+      .then((data) => {
+        if (!data || data.error || data.exception || data.message) {
+          throw new Error("Error: Thread could not be loaded");
         }
+        if (jwt && jwt.user.id === data.data.posted_by._id) {
+          setDisplayActions(true);
+        }
+        setError("");
+        setThread(data.data);
+
+        list(id).then((data) => {
+          if (data.data) {
+            setMessages(data.data);
+          }
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Error: Thread could not be loaded");
+
+        return setLoading(false);
       });
-    });
   }, [match]);
 
   useEffect(() => {

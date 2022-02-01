@@ -70,7 +70,7 @@ const Register = ({ classes, history }) => {
     if (name.length < 3) {
       setNameError("Name must be at least 3 characters");
       passed = false;
-    }
+    } else setNameError("");
     if (email.length < 3) {
       setEmailError("Email must be at least 3 characters");
       passed = false;
@@ -99,10 +99,8 @@ const Register = ({ classes, history }) => {
       setLoading(true);
       register({ name, email, password })
         .then((data) => {
-          console.log(data);
           if (data.error) {
-            setLoading(false);
-            return setError(data.error);
+            throw new Error();
           }
           setError("");
           history.push("/login");

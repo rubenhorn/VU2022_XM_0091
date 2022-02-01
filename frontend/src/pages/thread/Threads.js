@@ -72,21 +72,21 @@ const Threads = ({ classes }) => {
     /**
      * Load threads
      */
-    listThreads().then((data) => {
-      if (!data || data.error || data.exception || data.message) {
+    listThreads()
+      .then((data) => {
+        if (!data || data.error || data.exception || data.message) {
+          throw new Error("Error: Thread could not be loaded");
+        }
+        setError("");
+
         setLoading(false);
-        return setError(
-          data && data.error
-            ? Object.values(data.error)[0][0]
-            : "Could not load data"
-        );
-      }
-      setError("");
 
-      setLoading(false);
-
-      setThreads(data.data);
-    });
+        setThreads(data.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        return setError("Error: Could not connect to server");
+      });
   }, []);
 
   useEffect(() => {

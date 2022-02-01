@@ -1,0 +1,39 @@
+{{ $dnsPort := 53 -}}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ .Release.Name }}-backend-network-policy
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Release.Name }}-backend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - ports:
+    - port: {{ .Values.backendPort }}
+      protocol: TCP
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: mongodb
+          app.kubernetes.io/instance: {{ .Release.Name }}
+    ports:
+    - port: {{ .Values.databasePort }}
+      protocol: TCP
+  # Allow DNS to resolve DB IP
+  - to:
+    - podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+      namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+    ports:
+    - port: {{ $dnsPort }}
+      protocol: UDP
+    - port: {{ $dnsPort }}
+      protocol: TCP

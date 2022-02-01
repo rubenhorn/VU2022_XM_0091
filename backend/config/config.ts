@@ -18,7 +18,9 @@ dotenv.config();
 const config = {
   env: process.env.NODE_ENV || "development",
   port: process.env.PORT || 3000,
-  mongoUri: process.env.MONGO_URI || "",
+  mongodbUri: process.env.MONGODB_URI || "",
+  mongodbUser: process.env.MONGODB_USER || "",
+  mongodbPassword: process.env.MONGODB_PASSWORD || "",
   CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || "http://localhost:3000",
   jwtSecret: process.env.JWT_SECRET,
   SESSION_TTL: process.env.SESSION_TTL,
