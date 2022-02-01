@@ -14,7 +14,7 @@ Project for the course Software Containerization (CS Master) at VU
  8. (On GKE, install the nginx ingress controller)
  9. Install helm chart
  
- (!) The app is deployed locally on http://localhost:8080 or on <IP>.nip.io on GKE 
+ (!) The app is deployed locally on _http://<!-- prevent auto generated link -->localhost:8080_ or on _http://\<IP\>.nip.io_ on GKE 
 
 ## Folders:
  - /backend contains the backend of the app
