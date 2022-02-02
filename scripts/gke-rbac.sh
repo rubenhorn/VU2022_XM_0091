@@ -23,7 +23,7 @@ if [ "$1" == up ]; then
     $HELM install $APP_NAME ../helm/$APP_NAME
     echo -n "Testing RBAC... "
     test_rbac
-    if [[ $? -neq 0 ]]; then
+    if [[ $? -ne 0 ]]; then
         echo "Failed!"
         exit 1
     else
