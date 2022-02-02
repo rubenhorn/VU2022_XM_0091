@@ -37,6 +37,7 @@ Use:
  - install-nginx-ingress-ctrl.sh to install nginx ingress controller
  - gke-connect-cluster.sh to create or connect to the GKE cluster
  - gke-nginx-ingress-ctrl.sh to install the nginx ingress controller
+ - scale.sh to horizontally scale the stateless components of the application
 
 ## Patching:
  - Change the theme by running `patch -p0 < theme.patch`
