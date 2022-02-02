@@ -1,2 +1,1 @@
-registry: localhost:32000
-replicaCount: 2
+namespace: development
