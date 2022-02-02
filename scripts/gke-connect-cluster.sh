@@ -13,7 +13,8 @@ if [[ $? -eq 0 ]]; then
         exit
 fi
 
-echo "Cluster \`$CLUSTER' was not found! Do you want to create it?"
+echo -n "Cluster \`$CLUSTER' was not found! Do you want to create it?"
+read answer
 if [ "$answer" == "${answer#[Yy]}" ] ;then
     exit
 fi
