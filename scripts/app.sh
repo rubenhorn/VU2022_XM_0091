@@ -27,4 +27,5 @@ if [ "$($HELM list | grep $APP_NAME)" != "" ]; then
 else
     $SCRIPTPATH/gen-secrets.sh -y
     $HELM install $OVERRIDES $APP_NAME ../helm/$APP_NAME
+    echo -e "app running at http://$APP_HOSTNAME (make sure to add the rootCA.crt to the authorities in your browser!)"
 fi

@@ -4,14 +4,15 @@ Project for the course Software Containerization (CS Master) at VU
  - microk8s with dns, helm3, registry, storage, ingress
 
 ## Setup:
- 1. (On GKE, install the nginx ingress controller and run `export APP_HOSTNAME="<IP>.nip.io"`)
- 2. (On GKE, run `export PROJECT_ID=$(gcloud config get-value project) && export INGRESS_CLASS=nginx REGISTRY=gcr.io/$PROJECT_ID`)
- 3. Build container images
- 4. Push container images
- 5. Generate tls certificate
- 6. Create namespace
- 7. Update helm chart dependencies
- 8. Install helm chart
+ 1. (On GKE, run `export PROJECT=$(gcloud config get-value project) && export INGRESS_CLASS=nginx REGISTRY=gcr.io/$PROJECT`)
+ 2. (On GKE, create and/or connect to the cluster)
+ 3. (On GKE, install the nginx ingress controller and run `export APP_HOSTNAME="<IP>.nip.io"`)
+ 4. Build container images
+ 5. Push container images
+ 6. Generate tls certificate
+ 7. Create namespace
+ 8. Update helm chart dependencies
+ 9. Install helm chart
  
  (!) The app is deployed locally on _http://<!-- prevent auto generated link -->127.0.0.1.nip.io_ or on _http://\<IP\>.nip.io_ on GKE 
 
@@ -34,6 +35,8 @@ Use:
  - clean-ctr.sh to evict all images from the cache of the local container registries
  - canary-frontend.sh to manage the release of a new frontend
  - install-nginx-ingress-ctrl.sh to install nginx ingress controller
+ - gke-connect-cluster.sh to create or connect to the GKE cluster
+ - gke-nginx-ingress-ctrl.sh to install the nginx ingress controller
 
 ## Patching:
  - Change the theme by running `patch -p0 < theme.patch`
