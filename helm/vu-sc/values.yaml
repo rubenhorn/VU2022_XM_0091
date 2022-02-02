@@ -8,7 +8,7 @@ frontendImageTag: latest
 frontendPort: 3001
 databasePort: 27017
 ingressClass: public
-hostname: 127-0-0-1.nip.io
+hostname: "127.0.0.1.nip.io"
 
 # Subchart values
 mongodb:

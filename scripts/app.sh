@@ -2,7 +2,7 @@
 APP_NAME="vu-sc"
 REGISTRY="${REGISTRY:=localhost:32000}"
 INGRESS_CLASS="${INGRESS_CLASS:=public}"
-APP_HOSTNAME="${APP_HOSTNAME:=127-0-0-1.nip.io}"
+APP_HOSTNAME="${APP_HOSTNAME:=127.0.0.1.nip.io}"
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
     echo "Expected exactly one argument (\`up' or \`down')"

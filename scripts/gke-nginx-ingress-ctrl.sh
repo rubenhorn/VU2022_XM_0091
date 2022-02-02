@@ -27,4 +27,4 @@ while [ "$IP" == "<pending>" ]; do
     sleep 1
     IP=$(kubectl get services | grep -e "ingress-nginx-controller.*LoadBalancer" | awk '{ print $4 }')
 done
-echo -e "\nPlease run: export APP_HOSTNAME=$(echo $IP | tr . -).nip.io\n"
+echo -e "\nPlease run: export APP_HOSTNAME=$IP.nip.io\n"

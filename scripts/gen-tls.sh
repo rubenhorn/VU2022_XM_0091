@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-APP_HOSTNAME="${APP_HOSTNAME:="127-0-0-1.nip.io"}"
+APP_HOSTNAME="${APP_HOSTNAME:="127.0.0.1.nip.io"}"
 
 ROOT_CA_KEY="rootCA.key"
 ROOT_CA_CRT="rootCA.crt"

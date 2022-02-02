@@ -13,7 +13,7 @@ Project for the course Software Containerization (CS Master) at VU
  7. Update helm chart dependencies
  8. Install helm chart
  
- (!) The app is deployed locally on _http://<!-- prevent auto generated link -->127-0-0-1.nip.io_ or on _http://\<IP\>.nip.io_ on GKE 
+ (!) The app is deployed locally on _http://<!-- prevent auto generated link -->127.0.0.1.nip.io_ or on _http://\<IP\>.nip.io_ on GKE 
 
 ## Folders:
  - /backend contains the backend of the app
