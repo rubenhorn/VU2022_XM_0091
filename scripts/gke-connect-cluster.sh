@@ -13,7 +13,7 @@ if [[ $? -eq 0 ]]; then
         exit
 fi
 
-echo -n "Cluster \`$CLUSTER' was not found! Do you want to create it?"
+echo -n "Cluster \`$CLUSTER' was not found! Do you want to create it? "
 read answer
 if [ "$answer" == "${answer#[Yy]}" ] ;then
     exit
@@ -23,8 +23,8 @@ gcloud container clusters create $CLUSTER \
     --num-nodes 2 \
     --machine-type n1-standard-1 \
     --enable-network-policy \
-    --zone $REGION
+    --zone $ZONE
 
 echo "It can take a few minutes to set up the cluster."
-echo "Please check https://console.cloud.google.com/kubernetes/clusters/details/$REGION/$CLUSTER/details?project=$PROJECT"
+echo "Please check https://console.cloud.google.com/kubernetes/clusters/details/$ZONE/$CLUSTER/details?project=$PROJECT"
 echo "(Re-run this script after it has been created)"
