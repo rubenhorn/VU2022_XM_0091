@@ -23,16 +23,17 @@ Project for the course Software Containerization (CS Master) at VU
  - /scripts contains useful scripts to cut down the amount of cli interaction
 
 ## Scripts:
- - Use /scripts/build-and-push.sh to update the images for kubernetes
- - Use /scripts/download-dependencies.sh to get external helm charts
- - Use /scripts/gen-secrets.sh to create kubernetes secrets used by helm
- - Use /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
- - Use /scripts/app.sh to manage the deployment of the app through helm
- - Use /scripts/create-namespace.sh to create the namespace `development'
- - Use /scripts/test-net-policies.sh to challenge the network policy restrictions
- - Use /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
- - Use /scripts/canary-frontend.sh to manage the release of a new frontend
- - Use /srcipts/install-nginx-ingress-ctrl to install nginx ingress controller
+Use:
+ - /scripts/build-and-push.sh to update the images for kubernetes
+ - /scripts/download-dependencies.sh to get external helm charts
+ - /scripts/gen-secrets.sh to create kubernetes secrets used by helm
+ - /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
+ - /scripts/app.sh to manage the deployment of the app through helm
+ - /scripts/create-namespace.sh to create the namespace `development'
+ - /scripts/test-net-policies.sh to challenge the network policy restrictions
+ - /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
+ - /scripts/canary-frontend.sh to manage the release of a new frontend
+ - /srcipts/install-nginx-ingress-ctrl to install nginx ingress controller
 
 ## Patching:
  - Change the theme by running `patch -p0 < theme.patch`
