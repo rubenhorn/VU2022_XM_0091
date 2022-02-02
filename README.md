@@ -38,6 +38,7 @@ Use:
  - install-nginx-ingress-ctrl.sh to install nginx ingress controller
  - gke-connect-cluster.sh to create or connect to the GKE cluster
  - gke-nginx-ingress-ctrl.sh to install the nginx ingress controller
+ - gke-rbac.sh to set up cluster roles for Google Users (see values.yaml)
  - scale.sh to horizontally scale the stateless components of the application
 
 ## Patching:
