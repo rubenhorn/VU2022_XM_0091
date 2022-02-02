@@ -27,7 +27,7 @@ Use:
  - build-and-push.sh to update the images for kubernetes
  - download-dependencies.sh to get external helm charts
  - gen-secrets.sh to create kubernetes secrets used by helm
- - gen-tls.sh to create a rootCA and TLS certificate used by helm
+ - gen-tls.sh to create a rootCA and the host certificate used by helm
  - app.sh to manage the deployment of the app through helm
  - create-namespace.sh to create the namespace `development'
  - test-net-policies.sh to challenge the network policy restrictions
