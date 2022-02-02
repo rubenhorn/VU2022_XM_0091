@@ -4,8 +4,8 @@ Project for the course Software Containerization (CS Master) at VU
  - microk8s with dns, helm3, registry, storage, ingress
 
 ## Setup:
- 1. (On GKE, install the nginx ingress controller)
- 2. (On GKE, run `export INGRESS_CLASS=nginx REGISTRY=gcr.io/<gcp-projectId> APP_HOSTNAME="<IP>.nip.io"`)
+ 1. (On GKE, install the nginx ingress controller and run `export APP_HOSTNAME="<IP>.nip.io"`)
+ 2. (On GKE, run `export PROJECT_ID=$(gcloud config get-value project) && export INGRESS_CLASS=nginx REGISTRY=gcr.io/$PROJECT_ID`)
  3. Build container images
  4. Push container images
  5. Generate tls certificate
