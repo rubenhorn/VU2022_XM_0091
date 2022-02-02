@@ -10,7 +10,7 @@ Project for the course Software Containerization (CS Master) at VU
  3. (On GKE, install the nginx ingress controller and run `export APP_HOSTNAME="<IP>.nip.io"`)
  4. Build container images
  5. Push container images
- 6. Generate tls certificate
+ 6. Generate TLS certificate
  7. Create namespace
  8. Update helm chart dependencies
  9. Install helm chart
@@ -38,7 +38,8 @@ Use:
  - install-nginx-ingress-ctrl.sh to install nginx ingress controller
  - gke-connect-cluster.sh to create or connect to the GKE cluster
  - gke-nginx-ingress-ctrl.sh to install the nginx ingress controller
- - gke-rbac.sh to set up cluster roles for Google Users (see values.yaml)
+ - gke-rbac.sh to set up cluster roles for Google Users (see values.yaml)  
+   (RBAC for microk8s is implemented on [this (unused) branch](https://github.com/rubenhorn/VU2022_XM_0091/tree/rbac))
  - scale.sh to horizontally scale the stateless components of the application
 
 ## Patching:
