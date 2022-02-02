@@ -20,8 +20,10 @@ fi
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
+echo "Installing helm chart..."
 helm install  $APP_NAME ingress-nginx/ingress-nginx 1>/dev/null
 echo "Successfully installed nginx ingress controller."
+echo "Waiting for external IP..."
 IP="<pending>"
 while [ "$IP" == "<pending>" ]; do
     sleep 1

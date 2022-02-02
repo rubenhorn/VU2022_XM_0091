@@ -25,6 +25,6 @@ gcloud container clusters create $CLUSTER \
     --enable-network-policy \
     --zone $ZONE
 
-echo "It can take a few minutes to set up the cluster."
-echo "Please check https://console.cloud.google.com/kubernetes/clusters/details/$ZONE/$CLUSTER/details?project=$PROJECT"
-echo "(Re-run this script after it has been created)"
+echo -e "Cluster was created! (see https://console.cloud.google.com/kubernetes/clusters/details/$ZONE/$CLUSTER/details?project=$PROJECT)"
+# Restart script
+$(basename $0) && exit
