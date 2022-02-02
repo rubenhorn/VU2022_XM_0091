@@ -24,16 +24,16 @@ Project for the course Software Containerization (CS Master) at VU
 
 ## Scripts:
 Use:
- - /scripts/build-and-push.sh to update the images for kubernetes
- - /scripts/download-dependencies.sh to get external helm charts
- - /scripts/gen-secrets.sh to create kubernetes secrets used by helm
- - /scripts/gen-tls.sh to create a rootCA and TLS certificate used by helm
- - /scripts/app.sh to manage the deployment of the app through helm
- - /scripts/create-namespace.sh to create the namespace `development'
- - /scripts/test-net-policies.sh to challenge the network policy restrictions
- - /scripts/clean-ctr.sh to evict all images from the cache of the local container registries
- - /scripts/canary-frontend.sh to manage the release of a new frontend
- - /srcipts/install-nginx-ingress-ctrl to install nginx ingress controller
+ - build-and-push.sh to update the images for kubernetes
+ - download-dependencies.sh to get external helm charts
+ - gen-secrets.sh to create kubernetes secrets used by helm
+ - gen-tls.sh to create a rootCA and TLS certificate used by helm
+ - app.sh to manage the deployment of the app through helm
+ - create-namespace.sh to create the namespace `development'
+ - test-net-policies.sh to challenge the network policy restrictions
+ - clean-ctr.sh to evict all images from the cache of the local container registries
+ - canary-frontend.sh to manage the release of a new frontend
+ - install-nginx-ingress-ctrl.sh to install nginx ingress controller
 
 ## Patching:
  - Change the theme by running `patch -p0 < theme.patch`
