@@ -40,3 +40,8 @@ spec:
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.backendPort }}
+        readinessProbe:
+          httpGet:
+            path: /api/thread
+            port: {{ .Values.backendPort }}
+

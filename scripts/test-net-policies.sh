@@ -1,12 +1,7 @@
 #! /usr/bin/bash
-
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit
-fi
-
-KUBECTL="microk8s kubectl"
 NAMESPACE=development
+
+KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 # Run from corresponding pods
 CMD_EGRESS_FE_BE="wget http://vu-sc-frontend:3001 -qO- -T 5"

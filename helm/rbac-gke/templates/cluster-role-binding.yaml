@@ -1,0 +1,16 @@
+{{ $releaseName := .Release.Name -}}
+{{- range $.Values.developers }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ $releaseName }}-cluster-role-binding-{{ . }}
+subjects:
+- kind: User
+  name: {{ . }}
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: gcp-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+---
+{{- end }}

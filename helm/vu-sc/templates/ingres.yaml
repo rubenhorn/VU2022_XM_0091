@@ -4,16 +4,17 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Values.namespace }}
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    kubernetes.io/ingress.class: {{ .Values.ingressClass }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
 spec:
   tls:
-  - hosts:
-    # TODO get host from values.yaml
-    - localhost
-    secretName: {{ .Release.Name }}-tls-secret
+  - secretName: {{ .Release.Name }}-tls-secret
+    hosts:
+    - {{ .Values.hostname | quote }}
   rules:
-  - http:
+  - host: {{ .Values.hostname | quote }}
+    http:
       paths:
       - path: /
         pathType: Prefix

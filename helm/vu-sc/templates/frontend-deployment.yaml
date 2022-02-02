@@ -19,3 +19,7 @@ spec:
         imagePullPolicy: Always # Ensure that updated images are applied
         ports:
         - containerPort: {{ .Values.frontendPort }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.frontendPort }}

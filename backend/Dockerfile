@@ -40,6 +40,4 @@ EXPOSE 3000
 # Run with unpriviledged user
 USER node
 # Run directly without using package script to circumvent prestart script
-# TODO pause execution
-#ENTRYPOINT ["/bin/ash", "-c", "sleep infinity"]
 CMD ["node", "."]
