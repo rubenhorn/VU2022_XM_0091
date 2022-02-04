@@ -73,5 +73,7 @@ elif [ "$1" == "undeploy" ]; then
 elif [ "$1" == "release" ]; then
     docker tag "$REGISTRY/$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
         docker push "$REGISTRY/$IMAGE:latest"
-    $SCRIPTPATH/app.sh up
+    # $SCRIPTPATH/app.sh up
+    # Since tag did not change, no rollout will be triggered -> delete pods to trigger PullImage on recreation
+    $KUBECTL evict -l app=$PREFIX-frontend
 fi
