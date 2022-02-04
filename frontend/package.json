@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build-rename": "npm run build-rename-js && npm run build-fix-references",
-    "build-rename-js": "renamer --find \"/main\\.[^\\.]+\\./i\" --replace \"main.\" build\\static\\js\\*",
+    "build-rename-js": "renamer --find \"/main\\.[^\\.]+\\./i\" --replace \"main.\" build/static/js/*",
     "build-fix-references": "npm run build-fix-sourcemap && npm run build-fix-index && npm run build-fix-serviceworker && npm run build-fix-assetmanifest",
     "build-fix-sourcemap": "npm run build-fix-sourcemap-js",
     "build-fix-sourcemap-js": "replace-in-file \"/sourceMappingURL=main\\.[^\\.]+\\.js\\.map/i\" \"sourceMappingURL=main.js.map\" build/static/js/main.js --isRegex",
