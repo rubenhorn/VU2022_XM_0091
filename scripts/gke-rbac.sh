@@ -9,8 +9,9 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $SCRIPTPATH
 
 function test_rbac {
-    $KUBECTL auth can-i list pod --as foobar 1>/dev/null && exit 1
-    $KUBECTL auth can-i list pod --as $TEST_USER 1>/dev/null || exit 1
+    $KUBECTL auth can-i list pod --as foobar 1>/dev/null && return 1
+    $KUBECTL auth can-i list pod --as $TEST_USER 1>/dev/null || return 1
+    return 0
 }
 
 if [ "$#" != 1 ] || { [ "$1" != up ] && [ "$1" != down ] ;}; then
