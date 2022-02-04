@@ -2,10 +2,12 @@
 namespace: development
 registry: localhost:32000
 replicaCount: 2
-backendImageTag: latest
-backendPort: 3000
 frontendImageTag: latest
 frontendPort: 3001
+frontendRelease: latest
+backendImageTag: latest
+backendPort: 3000
+backendRelease: latest
 databasePort: 27017
 ingressClass: public
 hostname: "127.0.0.1.nip.io"

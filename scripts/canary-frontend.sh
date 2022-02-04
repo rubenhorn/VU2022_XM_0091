@@ -10,7 +10,7 @@ if [ "$#" != 1 ] || { [ "$1" != "build-and-push" ] && [ "$1" != "deploy" ] && [ 
     exit 1
 fi
 
-KUBECTL=$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
+KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
@@ -35,13 +35,15 @@ elif [ "$1" == "deploy" ]; then
     "replicas": $NUM_CANARY_PODS,
     "selector": {
       "matchLabels": {
-        "app": "$PREFIX-frontend"
+        "app": "$PREFIX-frontend",
+        "release": "canary"
       }
     },
     "template": {
       "metadata": {
         "labels": {
-          "app": "$PREFIX-frontend"
+          "app": "$PREFIX-frontend",
+          "release": "canary"
         }
       },
       "spec": {
@@ -69,7 +71,9 @@ elif [ "$1" == "undeploy" ]; then
     $KUBECTL delete -n $NAMESPACE deployment $PREFIX-frontend-canary
     $KUBECTL scale -n $NAMESPACE deployment $PREFIX-frontend --replicas=$NUM_PODS
 elif [ "$1" == "release" ]; then
-    docker tag "$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
+    docker tag "$REGISTRY/$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
         docker push "$REGISTRY/$IMAGE:latest"
-    $SCRIPTPATH/app.sh up
+    # $SCRIPTPATH/app.sh up
+    # Since tag did not change, no rollout will be triggered -> delete pods to trigger PullImage on recreation
+    $KUBECTL delete pods -l app=$PREFIX-frontend -n $NAMESPACE
 fi
