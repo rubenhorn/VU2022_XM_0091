@@ -35,13 +35,15 @@ elif [ "$1" == "deploy" ]; then
     "replicas": $NUM_CANARY_PODS,
     "selector": {
       "matchLabels": {
-        "app": "$PREFIX-frontend"
+        "app": "$PREFIX-frontend",
+        "release": "canary"
       }
     },
     "template": {
       "metadata": {
         "labels": {
-          "app": "$PREFIX-frontend"
+          "app": "$PREFIX-frontend",
+          "release": "canary"
         }
       },
       "spec": {

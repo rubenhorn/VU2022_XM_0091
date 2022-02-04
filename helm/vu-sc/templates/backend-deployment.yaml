@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-backend
+      release: {{ .Values.backendRelease }}
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}-backend
+        release: {{ .Values.backendRelease }}
     spec:
       containers:
       - name: {{ .Release.Name }}-backend

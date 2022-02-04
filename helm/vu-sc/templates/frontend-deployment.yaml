@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-frontend
+      release: {{ .Values.frontendRelease }}
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}-frontend
+        release: {{ .Values.frontendRelease }}
     spec:
       containers:
       - name: {{ .Release.Name }}-frontend
