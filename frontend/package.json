@@ -13,11 +13,23 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run build-rename",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-rename": "npm run build-rename-js && npm run build-fix-references",
+    "build-rename-js": "renamer --find \"/main\\.[^\\.]+\\./i\" --replace \"main.\" build/static/js/*",
+    "build-fix-references": "npm run build-fix-sourcemap && npm run build-fix-index && npm run build-fix-serviceworker && npm run build-fix-assetmanifest",
+    "build-fix-sourcemap": "npm run build-fix-sourcemap-js",
+    "build-fix-sourcemap-js": "replace-in-file \"/sourceMappingURL=main\\.[^\\.]+\\.js\\.map/i\" \"sourceMappingURL=main.js.map\" build/static/js/main.js --isRegex",
+    "build-fix-index": "npm run build-fix-index-js",
+    "build-fix-index-js": "replace-in-file \"/main\\.[^\\.]+\\.js/i\" \"main.js?v=%npm_package_version%\" build/index.html --isRegex",
+    "build-fix-serviceworker": "npm run build-fix-serviceworker-js",
+    "build-fix-serviceworker-js": "replace-in-file \"/main\\.[^\\.]+\\.js/i\" \"main.js\" build/service-worker.js --isRegex",
+    "build-fix-assetmanifest": "npm run build-fix-assetmanifest-js && npm run build-fix-assetmanifest-js-map",
+    "build-fix-assetmanifest-js": "replace-in-file \"/main\\.[^\\.]+\\.js/i\" \"main.js\" build/asset-manifest.json --isRegex",
+    "build-fix-assetmanifest-js-map": "replace-in-file \"/main\\.[^\\.]+\\.js\\.map/i\" \"main.js.map\" build/asset-manifest.json --isRegex"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +50,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "renamer": "^4.0.0",
+    "replace-in-file": "^6.3.2"
   }
 }
