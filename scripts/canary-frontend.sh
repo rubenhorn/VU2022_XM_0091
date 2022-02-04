@@ -75,5 +75,5 @@ elif [ "$1" == "release" ]; then
         docker push "$REGISTRY/$IMAGE:latest"
     # $SCRIPTPATH/app.sh up
     # Since tag did not change, no rollout will be triggered -> delete pods to trigger PullImage on recreation
-    $KUBECTL evict -l app=$PREFIX-frontend
+    $KUBECTL delete pods -l app=$PREFIX-frontend
 fi
