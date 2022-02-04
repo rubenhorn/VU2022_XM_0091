@@ -10,7 +10,7 @@ if [ "$#" != 1 ] || { [ "$1" != "build-and-push" ] && [ "$1" != "deploy" ] && [ 
     exit 1
 fi
 
-KUBECTL=$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
+KUBECTL="$(which kubectl || echo microk8s kubectl)" # Fallback for microk8s
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
