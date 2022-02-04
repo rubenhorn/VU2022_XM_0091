@@ -71,7 +71,7 @@ elif [ "$1" == "undeploy" ]; then
     $KUBECTL delete -n $NAMESPACE deployment $PREFIX-frontend-canary
     $KUBECTL scale -n $NAMESPACE deployment $PREFIX-frontend --replicas=$NUM_PODS
 elif [ "$1" == "release" ]; then
-    docker tag "$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
+    docker tag "$REGISTRY/$IMAGE:canary" "$REGISTRY/$IMAGE:latest" && \
         docker push "$REGISTRY/$IMAGE:latest"
     $SCRIPTPATH/app.sh up
 fi
