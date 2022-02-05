@@ -26,5 +26,11 @@ gcloud container clusters create $CLUSTER \
     --zone $ZONE
 
 echo -e "Cluster was created! (see https://console.cloud.google.com/kubernetes/clusters/details/$ZONE/$CLUSTER/details?project=$PROJECT)"
+
+
 # Restart script
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+cd $SCRIPTPATH
+
 $(basename $0) && exit
